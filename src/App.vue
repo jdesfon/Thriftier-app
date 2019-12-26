@@ -1,9 +1,18 @@
 <template>
-  <div id="app">
-    <v-app>
+    <v-app :style="{ background: $vuetify.theme.themes[theme].background }">
       <v-content>
         <router-view/>
       </v-content>
     </v-app>
-  </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  computed: {
+    theme() {
+      return (this.$vuetify.theme.themes.isLight) ? 'light' : 'dark';
+    },
+  },
+};
+</script>
