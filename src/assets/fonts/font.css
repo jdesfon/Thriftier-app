@@ -5,3 +5,30 @@
     src: url(./IBM_Plex_Sans/IBMPlexSans-Regular.ttf),
     url(./IBM_Plex_Sans/IBMPlexSans-Regular.ttf) format('truetype')
 }
+@font-face {
+    font-family: "Material Icons";
+    font-style: normal;
+    font-weight: 400;
+    src: url(./iconfont/MaterialIcons-Round.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "Material Icons Outlined";
+    font-style: normal;
+    font-weight: 400;
+    src: url(./iconfont/MaterialIcons-Outlined.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "Material Icons Sharp";
+    font-style: normal;
+    font-weight: 400;
+    src: url(./iconfont/MaterialIcons-Sharp.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "Material Icons Two Tone";
+    font-style: normal;
+    font-weight: 400;
+    src: url(./iconfont/MaterialIcons-TwoTones.woff2) format("woff2");
+}
