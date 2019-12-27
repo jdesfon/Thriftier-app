@@ -1,7 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Lodash from 'lodash';
-import Home from '../views/Home.vue';
+import Auth from '../views/auth/index.vue';
+import Confirm from '../views/auth/Confirm.vue';
+import SignIn from '../views/auth/SignIn.vue';
+import SignUp from '../views/auth/SignUp.vue';
+import SignOut from '../views/auth/SignOut.vue';
+import Landing from '../views/Landing.vue';
 import store from '../store';
 
 Vue.use(VueRouter);
@@ -10,7 +15,34 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
+    component: Landing,
+  },
+  {
+    path: '/auth',
+    name: 'auth',
+    component: Auth,
+    children: [
+      {
+        path: '/auth/sign-in',
+        name: 'sign-in',
+        component: SignIn,
+      },
+      {
+        path: '/auth/sign-up',
+        name: 'sign-up',
+        component: SignUp,
+      },
+      {
+        path: '/auth/email-confirm',
+        name: 'confirm',
+        component: Confirm,
+      },
+      {
+        path: '/auth/sign-out',
+        name: 'sign-out',
+        component: SignOut,
+      },
+    ],
   },
 ];
 

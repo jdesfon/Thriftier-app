@@ -1,9 +1,9 @@
 <template>
-    <v-app :style="{ background: $vuetify.theme.themes[theme].background }">
-      <v-content>
-        <router-view/>
-      </v-content>
-    </v-app>
+  <v-app :style="{ background: $vuetify.theme.themes[theme].background }">
+    <v-content>
+      <router-view />
+    </v-content>
+  </v-app>
 </template>
 
 <script>
