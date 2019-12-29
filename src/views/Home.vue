@@ -1,65 +1,8 @@
 <template>
   <div class="home">
-    <v-btn
-      round
-      large
-      dark
-      color="red"
-    >
-      hello
-    </v-btn>
-    <v-btn
-      round
-      large
-      dark
-      color="orange"
-    >
-      hello
-    </v-btn>
-    <v-btn
-      round
-      large
-      dark
-      color="blue"
-    >
-      hello
-    </v-btn>
-    <v-btn
-      round
-      large
-      dark
-      color="green"
-    >
-      hello
-    </v-btn>
-    <v-btn
-      round
-      large
-      dark
-      color="dark"
-    >
-      hello
-    </v-btn>
-    <v-btn
-      round
-      large
-      color="greyDark"
-    >
-      hello
-    </v-btn>
-    <v-btn
-      round
-      large
-      color="grey"
-    >
-      hello
-    </v-btn>
-    <v-btn
-      round
-      large
-      color="white"
-    >
-      hello
+    welcome home
+    <v-btn to="/auth/sign-out">
+      sign out
     </v-btn>
   </div>
 </template>

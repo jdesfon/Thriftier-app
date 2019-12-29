@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Lodash from 'lodash';
 import Auth from '../views/auth/index.vue';
 import Confirm from '../views/auth/Confirm.vue';
+import Home from '../views/Home.vue';
 import SignIn from '../views/auth/SignIn.vue';
 import SignUp from '../views/auth/SignUp.vue';
 import SignOut from '../views/auth/SignOut.vue';
@@ -14,7 +15,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'landing',
     component: Landing,
   },
   {
@@ -43,6 +44,11 @@ const routes = [
         component: SignOut,
       },
     ],
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: Home,
   },
 ];
 
