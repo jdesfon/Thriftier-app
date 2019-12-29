@@ -2,7 +2,7 @@
   <div class="signUp">
     <Header
       class="header"
-      redirect="home"
+      redirect="landing"
       logo
     />
 
@@ -15,27 +15,32 @@
       />
 
       <CustomTextField
-        v-model="email"
+        v-model="password"
         class="elevation-3 my-2"
         placeholder="password"
-        :type="password"
+        type="password"
       />
 
       <CustomTextField
-        v-model="email"
+        v-model="passwordConfirm"
         class="elevation-3 my-2"
         placeholder="confirm password"
-        :type="password"
+        type="password"
       />
 
-      <button class="form__submit my-2 elevation-2">
-        Sign in
+      <button
+        class="form__submit my-2 elevation-2"
+        @click.prevent="handleSubmit"
+      >
+        Sign up
       </button>
     </form>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import { USER, SIGN_UP } from '../../store/modules/user-types';
 import CustomTextField from '../../components/inputs/CustomTextField.vue';
 import Header from '../../components/Header.vue';
 
@@ -48,7 +53,18 @@ export default {
   data: () => ({
     email: '',
     password: '',
+    passwordConfirm: '',
   }),
+  methods: {
+    ...mapActions(USER, {
+      signUp: SIGN_UP,
+    }),
+    handleSubmit() {
+      if (this.password === this.passwordConfirm) {
+        this.signUp({ email: this.email, password: this.password });
+      }
+    },
+  },
 };
 </script>
 
@@ -61,35 +77,6 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    .title {
-      position: relative;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-
-      &__main {
-        margin-left: 50px;
-        font-size: 47px;
-      }
-
-      &__subtitle {
-        font-size: 12px;
-      }
-
-      &::before {
-        position: absolute;
-        left: 0px;
-        width: 50px;
-        height: 50px;
-        background-image: url('../../assets/img/thriftier-pig.svg');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-        content: '';
-      }
-    }
-
 
     &__form {
       flex-grow: 1;

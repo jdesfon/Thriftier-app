@@ -2,7 +2,7 @@
   <div class="signIn">
     <Header
       class="header"
-      redirect="home"
+      redirect="landing"
       logo
     />
 
@@ -11,17 +11,20 @@
         v-model="email"
         autocomplete="email"
         placeholder="email"
-        :type="email"
+        type="email"
       />
 
       <CustomTextField
-        v-model="email"
+        v-model="password"
         autocomplete="current-password"
         placeholder="password"
-        :type="password"
+        type="password"
       />
 
-      <button class="form__submit my-2 elevation-2">
+      <button
+        class="form__submit my-2 elevation-2"
+        @click.prevent="handleSubmit"
+      >
         Sign in
       </button>
     </form>
@@ -29,6 +32,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import { USER, SIGN_IN } from '../../store/modules/user-types';
 import Header from '../../components/Header.vue';
 import CustomTextField from '../../components/inputs/CustomTextField.vue';
 
@@ -39,6 +44,14 @@ export default {
     email: '',
     password: '',
   }),
+  methods: {
+    ...mapActions(USER, {
+      signIn: SIGN_IN,
+    }),
+    handleSubmit() {
+      this.signIn({ email: this.email, password: this.password });
+    },
+  },
 };
 </script>
 

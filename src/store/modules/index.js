@@ -1,3 +1,4 @@
 import * as user from './user';
+import * as notification from './notification';
 
-export default { user };
+export { user, notification };
