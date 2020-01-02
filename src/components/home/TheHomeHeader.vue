@@ -28,7 +28,7 @@
       <v-btn
         class="ma-0 elevation-0"
         round
-        small
+        @click="handleCreatePeriodClick"
       >
         <span class="small--text">create period</span>
       </v-btn>
@@ -46,8 +46,10 @@ export default {
     handleSignOutClick() {
       this.$emit('onSignOut');
     },
+    handleCreatePeriodClick() {
+      this.$emit('onCreatePeriod');
+    },
   },
-
 };
 </script>
 
@@ -55,26 +57,26 @@ export default {
     .theHomeHeader {
         padding-top: 2rem;
         padding-bottom: 0;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
         height: 100%;
         width: 100%;
         display: flex;
         flex-direction: column;
-        border-bottom: 2px solid red;
 
         &__appBar {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            --line-height: 2rem;
 
           .appBar__logo  {
               display: flex;
               flex-direction: column;
               justify-content: flex-start;
               align-items: flex-start;
+              height: 5rem;
 
+              --line-height: 2rem;
               img {
                   height: var(--line-height);
                   padding-right: 0.5rem;
@@ -97,6 +99,6 @@ export default {
 
     .small--text {
       font-size: 0.8rem;
-      text-transform: lowercase;
+      font-weight: bold;
     }
 </style>
