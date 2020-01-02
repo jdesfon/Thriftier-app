@@ -43,7 +43,6 @@ export default {
         return this.snackbar;
       },
       set() {
-        console.log('getter');
         this.updateSnackbar(false);
       },
     },
