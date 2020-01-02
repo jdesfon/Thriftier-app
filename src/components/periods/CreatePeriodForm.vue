@@ -6,9 +6,10 @@
       lazy-validation
     >
       <v-text-field
-        v-model="periodName"
+        v-model="title"
         label="Period"
         placeholder="enter a period name"
+        :rules="titleRules"
       />
 
       <v-text-field
@@ -16,11 +17,15 @@
         label="Budget"
         placeholder="enter a period budget"
         type="number"
+        min="0"
+        :rules="budgetRules"
+        validate-on-blur
+        clearable
       />
+
       <v-dialog
         ref="startDateDialog"
         v-model="isStartDatePickerVisible"
-        :return-value.sync="startDate"
         persistent
         lazy
         width="290px"
@@ -66,7 +71,7 @@
         :return-value.sync="endDate"
         persistent
         lazy
-        full-width
+        width="290px"
       >
         <template v-slot:activator="{ on }">
           <v-text-field
@@ -109,6 +114,7 @@
         block
         round
         color="blue"
+        @click="handleSubmit"
       >
         <span class="submit-button__text">submit</span>
       </v-btn>
@@ -118,17 +124,27 @@
 
 <script>
 import moment from 'moment';
+import { mapActions } from 'vuex';
+import notifications from '../../mixins/notifications';
+import { PERIOD, CREATE_PERIOD } from '../../store/modules/period-types';
 
 export default {
   name: 'CreatePeriodForm',
+  mixins: [notifications],
   data() {
     return {
       valid: true,
-      periodName: '',
+      title: '',
+      titleRules: [
+        v => !!v || 'this field is required',
+      ],
       budget: '',
+      budgetRules: [
+        v => !!v || 'this field is required',
+      ],
       isStartDatePickerVisible: false,
       isEndDatePickerVisible: false,
-      startDate: moment().format(),
+      startDate: new Date().toISOString().substr(0, 10),
       endDate: '',
     };
   },
@@ -136,14 +152,49 @@ export default {
     minEndDate() {
       return this.startDate ? this.startDate : null;
     },
-    formattedStartDate() {
-      return this.startDate ? moment(this.startDate).format('MMM Do, YYYY') : '';
+    formattedStartDate: {
+      get() {
+        return this.startDate ? moment(this.startDate).format('MMM Do, YYYY') : '';
+      },
+      set(val) {
+        this.formattedStartDate = moment(val).format('MMM Do, YYYY');
+      },
     },
-    formattedEndDate() {
-      return this.endDate ? moment(this.endDate).format('MMM Do, YYYY') : '';
+    formattedEndDate: {
+      get() {
+        return this.endDate ? moment(this.endDate).format('MMM Do, YYYY') : '';
+      },
+      set(val) {
+        this.formattedEndDate = moment(val).format('MMM Do, YYYY');
+      },
     },
   },
-
+  watch: {
+    startDate(value) {
+      if (moment(value).isAfter(this.endDate)) {
+        this.endDate = null;
+      }
+    },
+  },
+  methods: {
+    ...mapActions(PERIOD, {
+      createPeriod: CREATE_PERIOD,
+    }),
+    handleSubmit() {
+      if (this.$refs.form.validate()) {
+        const periodObj = {
+          title: this.title,
+          budget: this.budget,
+          startDate: moment(this.startDate).format('YYYY-MM-DD'),
+          endDate: moment(this.endDate).format('YYYY-MM-DD'),
+        };
+        this.createPeriod(periodObj);
+        this.$refs.form.reset();
+      } else {
+        this.notifyError('Form is invalid!');
+      }
+    },
+  },
 };
 </script>
 

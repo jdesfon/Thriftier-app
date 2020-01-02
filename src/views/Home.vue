@@ -31,6 +31,7 @@
 <script>
 import { mapActions } from 'vuex';
 import { USER, SIGN_OUT } from '../store/modules/user-types';
+
 import TheHomeHeader from '../components/home/TheHomeHeader.vue';
 import CreatePeriodForm from '../components/periods/CreatePeriodForm.vue';
 
