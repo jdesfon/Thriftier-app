@@ -1,0 +1,59 @@
+<template>
+  <div class="periodList">
+    <section>
+      <h2 class="periodList__title">
+        current periods
+      </h2>
+      <template v-for="(period, index) of openPeriods">
+        <PeriodCard
+          :key="`periodCard${index}`"
+          :period="period"
+        />
+      </template>
+    </section>
+
+    <section v-if="closePeriods.length">
+      <h2 class="periodList__title">
+        previous periods
+      </h2>
+      <template v-for="(period, index) of closePeriods">
+        <PeriodCard
+          :key="`periodCard${index}`"
+          :period="period"
+        />
+      </template>
+    </section>
+  </div>
+</template>
+
+<script>
+import { mapGetters } from 'vuex';
+import PeriodCard from './PeriodCard.vue';
+import { PERIOD, GET_PERIODS } from '../../store/modules/period-types';
+
+export default {
+  name: 'PeriodList',
+  components: { PeriodCard },
+  computed: {
+    ...mapGetters(PERIOD, {
+      periods: GET_PERIODS,
+    }),
+    openPeriods() {
+      return this.periods.filter(period => period.isOpen === 1);
+    },
+    closePeriods() {
+      return this.periods.filter(period => period.isOpen === 0);
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.periodList {
+    &__title {
+        color: $light;
+        font-size: 0.85rem;
+        padding: 0.15rem 0;
+    }
+}
+</style>
