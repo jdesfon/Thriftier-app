@@ -1,7 +1,16 @@
 <template>
   <div class="theHomeHeader">
-    <div class="theHomeHeader__action">
+    <div class="theHomeHeader__appBar">
+      <div class="appBar__logo">
+        <img
+          class="app-logo"
+          src="../../assets/img/thriftier-pig.svg"
+          alt="app logo"
+        >
+        <h1>thriftier</h1>
+      </div>
       <v-btn
+        class="ma-0"
         icon
         @click="handleSignOutClick"
       >
@@ -14,13 +23,15 @@
       </v-btn>
     </div>
 
-    <div class="theHomeHeader__app-name">
-      <img
-        class="app-logo"
-        src="../../assets/img/thriftier-pig.svg"
-        alt="app logo"
+
+    <div class="theHomeHeader__action">
+      <v-btn
+        class="ma-0 elevation-0"
+        round
+        small
       >
-      <h1>thriftier</h1>
+        <span class="small--text">create period</span>
+      </v-btn>
     </div>
   </div>
 </template>
@@ -39,35 +50,50 @@ export default {
 
 <style lang="scss" scoped>
     .theHomeHeader {
-        padding: 2rem;
+        padding-top: 2rem;
+        padding-bottom: 0;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
         height: 100%;
         width: 100%;
         display: flex;
         flex-direction: column;
+        border-bottom: 2px solid red;
+
+        &__appBar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            --line-height: 2rem;
+
+          .appBar__logo  {
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-start;
+              align-items: flex-start;
+
+              img {
+                  height: var(--line-height);
+                  padding-right: 0.5rem;
+              }
+
+              h1 {
+                  font-size: var(--line-height);
+                  font-weight: 600;
+                  color: $light;
+                  letter-spacing: 1px;
+              }
+          }
+        }
 
         &__action {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
+          display: flex;
+          justify-content: flex-end;
         }
+    }
 
-        &__app-name  {
-            --line-height: 3.2rem;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-
-            img {
-                height: var(--line-height);
-                padding-right: 0.5rem;
-            }
-
-            h1 {
-                font-size: var(--line-height);
-                font-weight: 600;
-                color: $light;
-                letter-spacing: 1px;
-            }
-        }
+    .small--text {
+      font-size: 0.8rem;
+      text-transform: lowercase;
     }
 </style>

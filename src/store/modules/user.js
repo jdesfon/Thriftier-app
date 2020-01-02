@@ -15,22 +15,17 @@ export const actions = {
   [SIGN_IN]: ({ commit }, { email, password }) => Auth.signIn(email, password).then(() => {
     commit(SET_AUTHENTICATE_STATUS, true);
     router.push({ name: 'home' });
-  }).catch((error) => {
-    console.log(error.message);
+  }).catch(() => {
     commit(SET_AUTHENTICATE_STATUS, false);
   }),
   [SIGN_UP]: ({ commit }, { email, password }) => Auth.signUp(email, password).then(() => {
     commit(SET_USER, { email, password });
     router.push({ name: 'confirm' });
-  }).catch((error) => {
-    console.log(error.message);
   }),
   [SIGN_OUT]: ({ commit }) => Auth.signOut().then(() => {
     commit(SET_AUTHENTICATE_STATUS, false);
     commit(SET_USER, { email: null, password: null });
     router.push({ name: 'landing' });
-  }).catch((error) => {
-    console.log(error.message);
   }),
   [CONFIRM_EMAIL]: ({ commit, state }, { code }) => Promise.all([
     Auth.confirmSignUp(state.user.email, code),
@@ -39,8 +34,7 @@ export const actions = {
     .then(() => {
       commit(SET_AUTHENTICATE_STATUS, true);
       router.push({ name: 'home' });
-    }).catch((error) => {
-      console.log(error.message);
+    }).catch(() => {
       commit(SET_AUTHENTICATE_STATUS, false);
     }),
 };

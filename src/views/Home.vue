@@ -28,7 +28,9 @@ export default {
 <style lang="scss" scoped>
 .home {
   width: 100%;
+  padding-top: 18vh;
   &__header {
+    height: 18vh;
     position: fixed;
     top: 0;
     left: 0;
