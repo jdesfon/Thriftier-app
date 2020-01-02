@@ -8,7 +8,7 @@
     </div>
 
     <section class="periods">
-      <h1>periods</h1>
+      <PeriodList />
     </section>
 
     <v-bottom-sheet
@@ -31,19 +31,31 @@
 <script>
 import { mapActions } from 'vuex';
 import { USER, SIGN_OUT } from '../store/modules/user-types';
+import { PERIOD, LIST_PERIODS } from '../store/modules/period-types';
 
 import TheHomeHeader from '../components/home/TheHomeHeader.vue';
 import CreatePeriodForm from '../components/periods/CreatePeriodForm.vue';
+import PeriodList from '../components/periods/PeriodList.vue';
 
 export default {
   name: 'Home',
-  components: { TheHomeHeader, CreatePeriodForm },
+  components: {
+    CreatePeriodForm,
+    PeriodList,
+    TheHomeHeader,
+  },
   data: () => ({
     createPeriodSheet: false,
   }),
+  mounted() {
+    this.listPeriods();
+  },
   methods: {
     ...mapActions(USER, {
       signOut: SIGN_OUT,
+    }),
+    ...mapActions(PERIOD, {
+      listPeriods: LIST_PERIODS,
     }),
     onCreatePeriodClick() {
       this.createPeriodSheet = true;
