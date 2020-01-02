@@ -37,8 +37,11 @@
 </template>
 
 <script>
+import notifications from '../../mixins/notifications';
+
 export default {
   name: 'TheHomeHeader',
+  mixins: [notifications],
   methods: {
     handleSignOutClick() {
       this.$emit('onSignOut');

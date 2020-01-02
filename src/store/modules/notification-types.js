@@ -1,7 +1,12 @@
-export const actions = {};
-
-export const mutations = {};
-
-export const getters = {};
-
-export const namespaced = true;
+// module name
+export const NOTIFICATION = 'notification';
+// mutations
+export const NOTIFICATION_INFO = 'NOTIFICATION_INFO';
+export const NOTIFICATION_SUCCESS = 'NOTIFICATION_SUCCESS';
+export const NOTIFICATION_ERROR = 'NOTIFICATION_ERROR';
+export const UPDATE_SNACKBAR = 'UPDATE_SNACKBAR';
+// getters
+export const GET_SNACKBAR = 'GET_SNACKBAR';
+export const GET_SNACKBAR_MESSAGE = 'GET_SNACKBAR_MESSAGE';
+export const GET_SNACKBAR_TYPE = 'GET_SNACKBAR_TYPE';
+export const GET_SNACKBAR_TIMEOUT = 'GET_SNACKBAR_TIMEOUT';
