@@ -26,8 +26,9 @@
 
     <div class="theHomeHeader__action">
       <v-btn
-        class="ma-0 elevation-0"
+        class="ma-0 elevation-2"
         round
+        small
         @click="handleCreatePeriodClick"
       >
         <span class="small--text">create period</span>
@@ -98,7 +99,7 @@ export default {
     }
 
     .small--text {
-      font-size: 0.8rem;
+      font-size: 0.6rem;
       font-weight: bold;
     }
 </style>

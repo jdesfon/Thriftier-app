@@ -48,7 +48,8 @@ export default {
     createPeriodSheet: false,
   }),
   mounted() {
-    this.listPeriods();
+    this.fetchOpenPeriods();
+    this.fetchClosePeriods();
   },
   methods: {
     ...mapActions(USER, {
@@ -57,6 +58,12 @@ export default {
     ...mapActions(PERIOD, {
       listPeriods: LIST_PERIODS,
     }),
+    fetchOpenPeriods() {
+      this.listPeriods(1);
+    },
+    fetchClosePeriods() {
+      this.listPeriods(0);
+    },
     onCreatePeriodClick() {
       this.createPeriodSheet = true;
     },
