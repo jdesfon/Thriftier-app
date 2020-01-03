@@ -4,6 +4,7 @@ import Lodash from 'lodash';
 import Auth from '../views/auth/index.vue';
 import Confirm from '../views/auth/Confirm.vue';
 import Home from '../views/Home.vue';
+import Period from '../views/Period.vue';
 import SignIn from '../views/auth/SignIn.vue';
 import SignUp from '../views/auth/SignUp.vue';
 import SignOut from '../views/auth/SignOut.vue';
@@ -49,6 +50,11 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Home,
+  },
+  {
+    path: '/period/:id',
+    name: 'period',
+    component: Period,
   },
 ];
 
