@@ -39,12 +39,10 @@ export default {
       return `${this.period.budget} €`;
     },
     formattedRemaining() {
-      return this.period.remaining
-        ? `${this.period.remaining} €`
-        : `${this.period.budget} €`;
+      return `${this.period.remaining} €`;
     },
     formattedPerDay() {
-      return this.period.perDay ? `${this.period.perDay} €/day` : '0 €/day';
+      return `${this.period.perDay} €/day`;
     },
     formattedEndDate() {
       const formattedDate = moment(this.period.endDate).format('MMM Do, YYYY');

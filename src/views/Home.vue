@@ -7,7 +7,7 @@
       />
     </div>
 
-    <section class="periods">
+    <section class="home__periods">
       <PeriodList />
     </section>
 
@@ -87,6 +87,10 @@ export default {
     top: 0;
     left: 0;
     right: 0;
+  }
+
+  &__periods {
+    height: calc(100% - 9rem);
   }
 }
 
