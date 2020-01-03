@@ -4,10 +4,13 @@ import endpoints from '../../api/endpoints';
 
 import {
   CREATE_PERIOD,
-  LIST_PERIODS,
-  SET_PERIODS,
+  FETCH_PERIOD,
   GET_CLOSE_PERIODS,
   GET_OPEN_PERIODS,
+  GET_PERIOD,
+  LIST_PERIODS,
+  SET_PERIOD,
+  SET_PERIODS,
 } from './period-types';
 
 export const actions = {
@@ -35,6 +38,14 @@ export const actions = {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
     }
   },
+  [FETCH_PERIOD]: async ({ commit }, id) => {
+    try {
+      const period = await API.get(config.API_NAME, endpoints.fetchPeriod(id));
+      commit(SET_PERIOD, { period });
+    } catch (error) {
+      commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
+    }
+  },
 };
 
 export const mutations = {
@@ -45,14 +56,19 @@ export const mutations = {
       state.closePeriods = periods;
     }
   },
+  [SET_PERIOD]: (state, { period }) => {
+    state.period = period;
+  },
 };
 
 export const getters = {
   [GET_OPEN_PERIODS]: state => state.openPeriods,
   [GET_CLOSE_PERIODS]: state => state.closePeriods,
+  [GET_PERIOD]: state => state.period,
 };
 
 export const state = () => ({
+  period: null,
   openPeriods: [],
   closePeriods: [],
 });

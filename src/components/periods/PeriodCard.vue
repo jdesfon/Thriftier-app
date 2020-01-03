@@ -1,5 +1,8 @@
 <template>
-  <div class="periodCard elevation-2">
+  <div
+    class="periodCard elevation-2"
+    @click="goToPeriod"
+  >
     <div class="periodCard__lead">
       <span class="lead__title">{{ period.title }}</span>
       <span class="lead__budget">{{ formattedBuget }}</span>
@@ -47,6 +50,14 @@ export default {
     formattedEndDate() {
       const formattedDate = moment(this.period.endDate).format('MMM Do, YYYY');
       return `closed on: ${formattedDate}`;
+    },
+  },
+  methods: {
+    goToPeriod() {
+      this.$router.push({
+        name: 'period',
+        params: { id: this.period.idperiod },
+      });
     },
   },
 };

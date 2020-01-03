@@ -19,6 +19,7 @@
         <v-btn
           icon
           color="white"
+          @click="createPeriodSheet = false"
         >
           <v-icon>close</v-icon>
         </v-btn>
