@@ -29,21 +29,16 @@
 <script>
 import { mapGetters } from 'vuex';
 import PeriodCard from './PeriodCard.vue';
-import { PERIOD, GET_PERIODS } from '../../store/modules/period-types';
+import { PERIOD, GET_OPEN_PERIODS, GET_CLOSE_PERIODS } from '../../store/modules/period-types';
 
 export default {
   name: 'PeriodList',
   components: { PeriodCard },
   computed: {
     ...mapGetters(PERIOD, {
-      periods: GET_PERIODS,
+      openPeriods: GET_OPEN_PERIODS,
+      closePeriods: GET_CLOSE_PERIODS,
     }),
-    openPeriods() {
-      return this.periods.filter(period => period.isOpen === 1);
-    },
-    closePeriods() {
-      return this.periods.filter(period => period.isOpen === 0);
-    },
   },
 };
 </script>

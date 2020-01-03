@@ -1,19 +1,31 @@
 <template>
-  <div class="periodCard">
+  <div class="periodCard elevation-2">
     <div class="periodCard__lead">
       <span class="lead__title">{{ period.title }}</span>
       <span class="lead__budget">{{ formattedBuget }}</span>
-      <span class="lead__records">10 records</span>
+      <span class="lead__records">{{ period.totalRecords }} records</span>
     </div>
 
-    <div class="periodCard__trail">
+    <div
+      v-if="period.isOpen"
+      class="periodCard__trail"
+    >
       <span class="trail__remaining">{{ formattedRemaining }}</span>
       <span class="trail__per-day">{{ formattedPerDay }}</span>
+    </div>
+    <div
+      v-else
+      class="periodCard__trail"
+    >
+      <span class="trail__remaining">{{ formattedRemaining }}</span>
+      <span class="trail_endDate">{{ formattedEndDate }}</span>
     </div>
   </div>
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: 'PeriodCard',
   props: {
@@ -27,10 +39,16 @@ export default {
       return `${this.period.budget} €`;
     },
     formattedRemaining() {
-      return '498.50 €';
+      return this.period.remaining
+        ? `${this.period.remaining} €`
+        : `${this.period.budget} €`;
     },
     formattedPerDay() {
-      return '20.95/day';
+      return this.period.perDay ? `${this.period.perDay} €/day` : '0 €/day';
+    },
+    formattedEndDate() {
+      const formattedDate = moment(this.period.endDate).format('MMM Do, YYYY');
+      return `closed on: ${formattedDate}`;
     },
   },
 };
@@ -40,7 +58,8 @@ export default {
 .periodCard {
     background-color: $light;
     width: 100%;
-    border-radius: 0.5rem;
+    height: 76px;
+    border-radius: 0.9rem;
     padding: 0.9rem 1.8rem;
     margin-bottom: 0.5rem;
     display: flex;
@@ -59,11 +78,13 @@ export default {
             }
 
             &__budget {
-                color: $grey-dark;
+                line-height: 1.1rem;
                 font-size: 0.8rem;
+                color: $grey-dark;
             }
 
             &__records {
+                line-height: 1.1rem;
                 color: $grey-dark;
                 font-size: 0.8rem;
             }
@@ -82,6 +103,13 @@ export default {
             }
 
             &__per-day {
+                line-height: 0.6rem;
+                font-size: 1rem;
+                color: $dark;
+            }
+
+            &__endDate {
+                line-height: 0.6rem;
                 font-size: 1rem;
                 color: $dark;
             }
