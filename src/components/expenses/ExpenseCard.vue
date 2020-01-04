@@ -5,10 +5,33 @@
       :class="[ alternate ? 'expenseCard--alternate' : 'expenseCard--default' ]"
     >
       <span class="expenseCard__title">{{ expense.title }}</span>
+      <v-btn
+        class="expenseCard__btn"
+        small
+        icon
+        color="greyDark"
+        @click="isDetailCardVisible = !isDetailCardVisible"
+      >
+        <v-icon
+          v-if="isDetailCardVisible"
+          color="white"
+        >
+          keyboard_arrow_down
+        </v-icon>
+        <v-icon
+          v-else
+          color="white"
+        >
+          keyboard_arrow_up
+        </v-icon>
+      </v-btn>
       <span class="expenseCard__amount">{{ expense.amount }} €</span>
     </div>
 
-    <div class="expenseCard__details">
+    <div
+      v-if="isDetailCardVisible"
+      class="expenseCard__details"
+    >
       <div class="details__infos">
         <div class="infos__category">
           <span class="infos__category--title">category</span>
@@ -26,8 +49,8 @@
           </div>
         </div>
       </div>
-      <div class="details__receip">
-        attached receip
+      <div class="details__receipt">
+        attached receipt
       </div>
     </div>
   </div>
@@ -48,6 +71,9 @@ export default {
       default: () => false,
     },
   },
+  data: () => ({
+    isDetailCardVisible: false,
+  }),
   computed: {
     formattedDate() {
       return moment(this.expense.createdAt).format('MMM Do - HH:mm');
@@ -64,6 +90,30 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    &--default {
+        background-color: $light;
+    }
+
+    &--alternate {
+        background-color: $grey;
+    }
+
+    &__title {
+        font-weight: 400;
+        width: 50%;
+    }
+
+    &__amount {
+        background-color: $dark;
+        min-width: 5.5rem;
+        border-radius: 1rem;
+        padding: 0.5rem 1rem;
+        line-height: 1rem;
+        font-weight: bold;
+        color: $light;
+        text-align: center;
     }
 
     &__details {
@@ -123,7 +173,7 @@ export default {
 
         }
 
-        .details__receip {
+        .details__receipt {
             background-color: $grey;
             display: flex;
             flex-grow: 57;
@@ -132,29 +182,6 @@ export default {
             font-size: 0.8rem;
         }
 
-    }
-
-    &--default {
-        background-color: $light;
-    }
-
-    &--alternate {
-        background-color: $grey;
-    }
-
-    &__title {
-        font-weight: 400;
-    }
-
-    &__amount {
-        background-color: $dark;
-        min-width: 5.5rem;
-        border-radius: 1rem;
-        padding: 0.5rem 1rem;
-        line-height: 1rem;
-        font-weight: bold;
-        color: $light;
-        text-align: center;
     }
 }
 </style>

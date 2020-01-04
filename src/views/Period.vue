@@ -1,12 +1,28 @@
 <template>
   <div class="period">
-    <template v-for="(expense, index) of expenses">
-      <ExpenseCard
-        :key="index"
-        :alternate="index % 2 === 1"
-        :expense="expense"
-      />
-    </template>
+    <div
+      v-if="period"
+      class="period__header"
+    >
+      <ThePeriodHeader :period="period" />
+    </div>
+
+    <div
+      v-if="period"
+      class="period__status"
+    >
+      <ThePeriodStatus :period="period" />
+    </div>
+
+    <div class="period__list">
+      <template v-for="(expense, index) of expenses">
+        <ExpenseCard
+          :key="index"
+          :alternate="index % 2 === 1"
+          :expense="expense"
+        />
+      </template>
+    </div>
 
     <v-btn
       class="addButton"
@@ -49,12 +65,20 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { EXPENSE, LIST_EXPENSES, GET_EXPENSES } from '../store/modules/expense-types';
+import { PERIOD, FETCH_PERIOD, GET_PERIOD } from '../store/modules/period-types';
 import ExpenseCard from '../components/expenses/ExpenseCard.vue';
 import CreateExpenseForm from '../components/expenses/CreateExpenseForm.vue';
+import ThePeriodHeader from '../components/periods/ThePeriodHeader.vue';
+import ThePeriodStatus from '../components/periods/ThePeriodStatus.vue';
 
 export default {
   name: 'Period',
-  components: { CreateExpenseForm, ExpenseCard },
+  components: {
+    CreateExpenseForm,
+    ExpenseCard,
+    ThePeriodHeader,
+    ThePeriodStatus,
+  },
   data: () => ({
     fkPeriod: null,
     createExpenseSheet: false,
@@ -63,14 +87,21 @@ export default {
     ...mapGetters(EXPENSE, {
       expenses: GET_EXPENSES,
     }),
+    ...mapGetters(PERIOD, {
+      period: GET_PERIOD,
+    }),
   },
   mounted() {
     this.fkPeriod = parseInt(this.$route.params.id, 10);
     this.listExpenses({ periodId: this.fkPeriod });
+    this.fetchPeriod({ periodId: this.fkPeriod });
   },
   methods: {
     ...mapActions(EXPENSE, {
       listExpenses: LIST_EXPENSES,
+    }),
+    ...mapActions(PERIOD, {
+      fetchPeriod: FETCH_PERIOD,
     }),
   },
 };
@@ -79,7 +110,27 @@ export default {
 <style lang="scss" scoped>
 .period {
   position: relative;
-  height: 100%;
+  height: 100vh;
+
+  &__header {
+    height: 7.5rem;
+  }
+
+  &__status {
+    height: 5.5rem;
+  }
+
+
+  &__list {
+    height: calc(100% - 13rem);
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+      display: none;  /* Safari and Chrome */
+    }
+  }
 
   .addButton {
     position: absolute;

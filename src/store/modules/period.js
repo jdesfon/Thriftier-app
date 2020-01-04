@@ -38,9 +38,9 @@ export const actions = {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
     }
   },
-  [FETCH_PERIOD]: async ({ commit }, id) => {
+  [FETCH_PERIOD]: async ({ commit }, { periodId }) => {
     try {
-      const period = await API.get(config.API_NAME, endpoints.fetchPeriod(id));
+      const [period] = await API.get(config.API_NAME, endpoints.fetchPeriod(periodId));
       commit(SET_PERIOD, { period });
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });

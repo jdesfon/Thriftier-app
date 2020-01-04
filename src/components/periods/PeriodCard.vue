@@ -65,6 +65,7 @@ export default {
 
 <style lang="scss">
 .periodCard {
+    cursor: pointer;
     background-color: $light;
     width: 100%;
     height: 76px;

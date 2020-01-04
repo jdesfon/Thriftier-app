@@ -6,8 +6,6 @@ import config from './config';
 import store from './store';
 import router from './router';
 
-import 'vuetify/dist/vuetify.min.css';
-
 Amplify.configure({
   Auth: {
     mandatorySignIn: true,
