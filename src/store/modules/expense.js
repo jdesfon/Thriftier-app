@@ -33,6 +33,7 @@ export const actions = {
           transactionType,
         },
       });
+      commit('notification/NOTIFICATION_INFO', 'expense created', { root: true });
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
     }
