@@ -15,12 +15,25 @@
     </div>
 
     <div class="period__list">
-      <template v-for="(expense, index) of expenses">
-        <ExpenseCard
-          :key="index"
-          :alternate="index % 2 === 1"
-          :expense="expense"
-        />
+      <template v-for="(expensesGroup, groupIndex) of Object.entries(expensesGroupedByDay)">
+        <div
+          :key="`group${groupIndex}`"
+          class="list-spacer"
+        >
+          <span>
+            {{ formatSpacerDate(expensesGroup[0]) }}
+          </span>
+          <span>
+            total {{ groupTotal(expensesGroup) }} €
+          </span>
+        </div>
+        <template v-for="(expense, index) of expensesGroup[1]">
+          <ExpenseCard
+            :key="index"
+            :alternate="index % 2 === 1"
+            :expense="expense"
+          />
+        </template>
       </template>
     </div>
 
@@ -63,6 +76,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { mapActions, mapGetters } from 'vuex';
 import { EXPENSE, LIST_EXPENSES, GET_EXPENSES } from '../store/modules/expense-types';
 import { PERIOD, FETCH_PERIOD, GET_PERIOD } from '../store/modules/period-types';
@@ -90,6 +104,16 @@ export default {
     ...mapGetters(PERIOD, {
       period: GET_PERIOD,
     }),
+    expensesGroupedByDay() {
+      return this.expenses.reduce((acc, curr) => {
+        if (!acc[curr.date]) {
+          acc[curr.date] = [curr];
+        } else {
+          acc[curr.date].push(curr);
+        }
+        return acc;
+      }, {});
+    },
   },
   mounted() {
     this.fkPeriod = parseInt(this.$route.params.id, 10);
@@ -103,6 +127,15 @@ export default {
     ...mapActions(PERIOD, {
       fetchPeriod: FETCH_PERIOD,
     }),
+    formatSpacerDate(date) {
+      return moment(date).format('MMM Do');
+    },
+    groupTotal(expensesGroup) {
+      return expensesGroup[1].reduce((acc, curr) => {
+        const sum = acc + curr.amount;
+        return sum;
+      }, 0);
+    },
   },
 };
 </script>
@@ -130,6 +163,17 @@ export default {
     ::-webkit-scrollbar {
       display: none;  /* Safari and Chrome */
     }
+  }
+
+  .list-spacer {
+    background-color: $dark;
+    padding: 0 1.7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: $light;
+    font-size: 0.7rem;
+    font-weight: 600;
   }
 
   .addButton {
