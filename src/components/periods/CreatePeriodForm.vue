@@ -190,6 +190,7 @@ export default {
         };
         this.createPeriod(periodObj);
         this.$refs.form.reset();
+        this.$emit('close');
       } else {
         this.notifyError('Form is invalid!');
       }

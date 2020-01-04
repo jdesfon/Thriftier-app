@@ -7,7 +7,7 @@
     >
       <v-text-field
         v-model="title"
-        label="title"
+        label="Title"
         placeholder="enter an expense title"
         :rules="titleRules"
       />
@@ -47,6 +47,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import notifications from '../../mixins/notifications';
 import {
   EXPENSE,
   CREATE_EXPENSE,
@@ -60,6 +61,7 @@ import {
 
 export default {
   name: 'CreateExpenseForm',
+  mixins: [notifications],
   props: {
     fkPeriod: {
       type: Number,
@@ -94,7 +96,19 @@ export default {
       listTransactionTypes: LIST_TRANSACTION_TYPES,
     }),
     handleSubmit() {
-      console.log('submit');
+      if (this.$refs.form.validate()) {
+        const expenseObj = {
+          fkPeriod: this.fkPeriod,
+          title: this.title,
+          amount: this.amount,
+          transactionType: this.transactionType,
+        };
+        this.createExpense(expenseObj);
+        this.$refs.form.reset();
+        this.$emit('close');
+      } else {
+        this.notifyError('Form is invalid!');
+      }
     },
   },
 

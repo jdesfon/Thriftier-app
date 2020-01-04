@@ -23,7 +23,7 @@
         >
           <v-icon>close</v-icon>
         </v-btn>
-        <CreatePeriodForm />
+        <CreatePeriodForm @close="createPeriodSheet = false" />
       </div>
     </v-bottom-sheet>
   </div>
