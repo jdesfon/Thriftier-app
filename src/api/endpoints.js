@@ -5,4 +5,5 @@ export default {
   listExpenses: idPeriod => `/expenses/period/${idPeriod}`,
   createExpense: '/expenses',
   listTransactionTypes: '/transaction-types',
+  listCategories: '/categories',
 };
