@@ -1,4 +1,12 @@
 export default {
+  MAX_ATTACHMENT_SIZE: 10000000,
+  AUTHORIZED_FILE_TYPES: [
+    'image/jpeg',
+    'image/png',
+    'image/tiff',
+    'image/gif',
+    'application/pdf',
+  ],
   s3: {
     REGION: process.env.VUE_APP_AWS_REGION,
     BUCKET: process.env.VUE_APP_S3_BUCKET_NAME,
