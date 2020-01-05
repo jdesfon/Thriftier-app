@@ -155,6 +155,7 @@ export default {
 
 
   &__list {
+    background-color: $light;
     height: calc(100% - 13rem);
     overflow-y: scroll;
     scroll-behavior: smooth;
