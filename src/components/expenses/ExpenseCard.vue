@@ -49,7 +49,21 @@
           </div>
         </div>
       </div>
-      <div class="details__receipt">
+
+      <v-img
+        v-if="receiptUrl"
+        contain
+        aspect-ratio="1"
+        max-height="205px"
+        max-width="210px"
+        position="right bottom"
+        :src="receiptUrl"
+      />
+
+      <div
+        v-if="!receiptUrl"
+        class="details__receipt"
+      >
         attached receipt
       </div>
     </div>
@@ -58,6 +72,8 @@
 
 <script>
 import moment from 'moment';
+import { mapActions } from 'vuex';
+import { EXPENSE, FETCH_RECEIPT_URL } from '../../store/modules/expense-types';
 
 export default {
   name: 'ExpenseCard',
@@ -73,6 +89,7 @@ export default {
   },
   data: () => ({
     isDetailCardVisible: false,
+    receiptUrl: null,
   }),
   computed: {
     formattedDate() {
@@ -81,6 +98,19 @@ export default {
     expenseCategory() {
       return this.expense.categoryName ? this.expense.categoryName : 'uncategorized';
     },
+  },
+  mounted() {
+    if (this.expense.receipt) {
+      this.fetchReceiptUrl({ fileKey: this.expense.receipt, idExpense: this.idexpense })
+        .then((receiptUrl) => {
+          this.receiptUrl = receiptUrl;
+        });
+    }
+  },
+  methods: {
+    ...mapActions(EXPENSE, {
+      fetchReceiptUrl: FETCH_RECEIPT_URL,
+    }),
   },
 };
 </script>
@@ -127,7 +157,7 @@ export default {
         justify-content: space-between;
 
         .details__infos {
-            flex-grow: 100;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -178,8 +208,9 @@ export default {
 
         .details__receipt {
             background-color: $grey;
+            padding: 0 1.5rem;
             display: flex;
-            flex-grow: 57;
+            max-height: 100%;
             justify-content: center;
             align-items: center;
             font-size: 0.8rem;
