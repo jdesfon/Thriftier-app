@@ -184,6 +184,7 @@ export default {
           fkPeriod: this.fkPeriod,
           fkTransactionType: this.fkTransactionType,
           fkCategory: this.fkCategory,
+          receipt: this.receipt,
         };
         this.createExpense(expenseObj);
         this.$refs.form.reset();

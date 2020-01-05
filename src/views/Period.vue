@@ -27,10 +27,10 @@
             total {{ groupTotal(expensesGroup) }} €
           </span>
         </div>
-        <template v-for="(expense, index) of expensesGroup[1]">
+        <template v-for="(expense, expenseIndex) of expensesGroup[1]">
           <ExpenseCard
-            :key="index"
-            :alternate="index % 2 === 1"
+            :key="`group${groupIndex}_expense${expenseIndex}`"
+            :alternate="expenseIndex % 2 === 1"
             :expense="expense"
           />
         </template>
