@@ -54,3 +54,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+body {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+      display: none;  /* Safari and Chrome */
+    }
+}
+</style>
