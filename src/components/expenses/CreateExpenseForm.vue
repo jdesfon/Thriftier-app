@@ -36,10 +36,65 @@
         v-model="fkCategory"
         :items="categories"
         item-value="idcategory"
-        item-text="name"
+        item-text="categoryName"
         label="Category"
         placeholder="select a category"
       />
+
+      <div class="receipt">
+        <input
+          v-show="false"
+          id="fileUpload"
+          ref="fileUpload"
+          type="file"
+          name="fileUpload"
+          @change="onFileUpload"
+        >
+
+        <div class="receipt__preview">
+          <v-icon
+            v-show="receipt"
+            class="preview__undo"
+            color="white"
+            @click="handleClearUpload"
+          >
+            close
+          </v-icon>
+
+          <img
+            v-if="receipt"
+            id="preview__image"
+            alt="receipt"
+            class="preview__image"
+          >
+
+          <img
+            v-else
+            id="preview__default"
+            alt="no-receipt"
+            class="preview__image"
+            src="../../assets/img/attached_receipt.png"
+          >
+        </div>
+
+        <div class="receipt__upload">
+          <v-btn
+            dark
+            fab
+            @click="$refs.fileUpload.click()"
+          >
+            <v-icon style="height: auto;">
+              cloud_upload
+            </v-icon>
+          </v-btn>
+          <v-chip
+            small
+          >
+            upload receipt
+          </v-chip>
+        </div>
+        <span />
+      </div>
 
       <v-btn
         class="submit-button"
@@ -56,6 +111,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import config from '../../config';
 import notifications from '../../mixins/notifications';
 import {
   EXPENSE,
@@ -95,6 +151,8 @@ export default {
     amountRules: [
       v => !!v || 'this field is required',
     ],
+    receipt: null,
+    isFile: false,
   }),
   computed: {
     ...mapGetters(TRANSACTION_TYPE, {
@@ -134,6 +192,30 @@ export default {
         this.notifyError('Form is invalid!');
       }
     },
+    onFileUpload(event) {
+      const file = event.target.files[0];
+      const { size, type } = file;
+
+      if (size > config.MAX_ATTACHMENT_SIZE) {
+        this.notifyError(`Please pick a file small than ${config.MAX_ATTACHMENT_SIZE / 1000000} Mb`);
+      }
+
+      if (!config.AUTHORIZED_FILE_TYPES.includes(type)) {
+        this.notifyError('This type of file is not authorized');
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const previewImage = document.getElementById('preview__image');
+        previewImage.src = reader.result;
+      };
+
+      this.receipt = file;
+      reader.readAsDataURL(file);
+    },
+    handleClearUpload() {
+      this.receipt = null;
+    },
   },
 
 };
@@ -142,6 +224,35 @@ export default {
 <style lang="scss" scoped>
 .createExpenseForm {
     padding: 1.2rem;
+}
+
+.receipt {
+  display: flex;
+
+  &__preview {
+      position: relative;
+      .preview__undo {
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+      }
+
+      .preview__image {
+        max-width: 150px;
+        max-height: 200px;
+        object-fit: contain;
+        width:auto;
+        height:auto;
+      }
+  }
+
+  &__upload {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .submit-button {

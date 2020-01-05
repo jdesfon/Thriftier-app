@@ -14,7 +14,7 @@ export const actions = {
       const categories = await API.get(config.API_NAME, endpoints.listCategories);
       commit(SET_CATEGORIES, categories);
     } catch (error) {
-      commit('notification/ERROR', error.message, { root: true });
+      commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
     }
   },
 };

@@ -14,7 +14,7 @@ export const actions = {
       const transactionTypes = await API.get(config.API_NAME, endpoints.listTransactionTypes);
       commit(SET_TRANSACTION_TYPES, transactionTypes);
     } catch (error) {
-      commit('notification/ERROR', error.message, { root: true });
+      commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
     }
   },
 };
