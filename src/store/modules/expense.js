@@ -1,5 +1,6 @@
 import { API } from 'aws-amplify';
 import config from '../../config';
+import s3Upload from '../../libs/awsLib';
 import endpoints from '../../api/endpoints';
 
 import {
@@ -24,8 +25,10 @@ export const actions = {
     title,
     fkTransactionType,
     fkCategory,
+    receipt,
   }) => {
     try {
+      const receiptFileKey = await s3Upload(receipt);
       await API.post(config.API_NAME, endpoints.createExpense, {
         body: {
           amount,
@@ -33,6 +36,7 @@ export const actions = {
           title,
           fkTransactionType,
           fkCategory,
+          receipt: receiptFileKey,
         },
       });
       commit('notification/NOTIFICATION_INFO', 'expense created', { root: true });

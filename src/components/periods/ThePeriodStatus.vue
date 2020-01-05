@@ -5,7 +5,7 @@
   >
     <div class="periodStatus__remaining">
       <span class="periodStatus__title">remaining</span>
-      <span class="remaining__value">{{ period.remaining }} €</span>
+      <span class="remaining__value">{{ formattedRemaining }}</span>
     </div>
     <div class="periodStatus__daily-budget">
       <span class="periodStatus__title">daily budget</span>
@@ -24,7 +24,7 @@
         >
           arrow_upward
         </v-icon>
-        {{ period.remainingPerDay }} €
+        {{ formattedRemainingPerDay }}
       </span>
     </div>
   </div>
@@ -40,6 +40,12 @@ export default {
     },
   },
   computed: {
+    formattedRemaining() {
+      return `${Number(this.period.remaining).toFixed(2)} €`;
+    },
+    formattedRemainingPerDay() {
+      return `${Number(this.period.remainingPerDay).toFixed(2)} €/day`;
+    },
     isDailyBudgetDecreasing() {
       const { perDay, remainingPerDay } = this.period;
       const remainingRatio = remainingPerDay / perDay;

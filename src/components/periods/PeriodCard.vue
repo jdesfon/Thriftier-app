@@ -42,10 +42,10 @@ export default {
       return `${this.period.budget} €`;
     },
     formattedRemaining() {
-      return `${this.period.remaining} €`;
+      return `${Number(this.period.remaining).toFixed(2)} €`;
     },
     formattedPerDay() {
-      return `${this.period.perDay} €/day`;
+      return `${Number(this.period.perDay).toFixed(2)} €/day`;
     },
     formattedEndDate() {
       const formattedDate = moment(this.period.endDate).format('MMM Do, YYYY');
