@@ -22,15 +22,17 @@ export const actions = {
     amount,
     fkPeriod,
     title,
-    transactionType,
+    fkTransactionType,
+    fkCategory,
   }) => {
     try {
       await API.post(config.API_NAME, endpoints.createExpense, {
         body: {
           amount,
-          fk_period: fkPeriod,
+          fkPeriod,
           title,
-          transactionType,
+          fkTransactionType,
+          fkCategory,
         },
       });
       commit('notification/NOTIFICATION_INFO', 'expense created', { root: true });

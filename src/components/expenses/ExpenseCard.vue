@@ -35,7 +35,7 @@
       <div class="details__infos">
         <div class="infos__category">
           <span class="infos__category--title">category</span>
-          <span class="infos__category--name">shoes</span>
+          <span class="infos__category--name">{{ expenseCategory }}</span>
         </div>
         <div class="infos__footer">
           <div class="footer__text">
@@ -77,6 +77,9 @@ export default {
   computed: {
     formattedDate() {
       return moment(this.expense.createdAt).format('MMM Do - HH:mm');
+    },
+    expenseCategory() {
+      return this.expense.categoryName ? this.expense.categoryName : 'uncategorized';
     },
   },
 };

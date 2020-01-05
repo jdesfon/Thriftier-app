@@ -24,12 +24,21 @@
       />
 
       <v-select
-        v-model="transactionType"
+        v-model="fkTransactionType"
         :items="transactionTypes"
         item-value="idtransaction_type"
         item-text="type"
         label="TransactionType"
         placeholder="select a transaction type"
+      />
+
+      <v-select
+        v-model="fkCategory"
+        :items="categories"
+        item-value="idcategory"
+        item-text="name"
+        label="Category"
+        placeholder="select a category"
       />
 
       <v-btn
@@ -59,6 +68,12 @@ import {
   GET_TRANSACTION_TYPES,
 } from '../../store/modules/transactionType-types';
 
+import {
+  CATEGORY,
+  LIST_CATEGORIES,
+  GET_CATEGORIES,
+} from '../../store/modules/category-types';
+
 export default {
   name: 'CreateExpenseForm',
   mixins: [notifications],
@@ -70,7 +85,8 @@ export default {
   },
   data: () => ({
     valid: true,
-    transactionType: '',
+    fkTransactionType: '',
+    fkCategory: '',
     title: '',
     titleRules: [
       v => !!v || 'this field is required',
@@ -84,9 +100,13 @@ export default {
     ...mapGetters(TRANSACTION_TYPE, {
       transactionTypes: GET_TRANSACTION_TYPES,
     }),
+    ...mapGetters(CATEGORY, {
+      categories: GET_CATEGORIES,
+    }),
   },
   mounted() {
     this.listTransactionTypes();
+    this.listCategories();
   },
   methods: {
     ...mapActions(EXPENSE, {
@@ -95,13 +115,17 @@ export default {
     ...mapActions(TRANSACTION_TYPE, {
       listTransactionTypes: LIST_TRANSACTION_TYPES,
     }),
+    ...mapActions(CATEGORY, {
+      listCategories: LIST_CATEGORIES,
+    }),
     handleSubmit() {
       if (this.$refs.form.validate()) {
         const expenseObj = {
-          fkPeriod: this.fkPeriod,
           title: this.title,
           amount: this.amount,
-          transactionType: this.transactionType,
+          fkPeriod: this.fkPeriod,
+          fkTransactionType: this.fkTransactionType,
+          fkCategory: this.fkCategory,
         };
         this.createExpense(expenseObj);
         this.$refs.form.reset();
