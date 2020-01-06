@@ -39,17 +39,17 @@ export default {
 
 <style lang="scss" scoped>
 .customTextField {
-    border-radius: 2.5rem;
-      background-color: #eeeeee;
-      padding-left: 2.5rem;
-      height: 5rem;
-      width: 100%;
-      color: $dark;
-      font-size: 1.2rem;
+  border-radius: 2.5rem;
+  background-color: #eeeeee;
+  padding-left: 2.5rem;
+  height: 5rem;
+  width: 100%;
+  color: $dark;
+  font-size: 1.2rem;
 
-      &::placeholder {
-        color: $black;
-        font-size: 1.2rem;
-      }
+  &::placeholder {
+    color: $black;
+    font-size: 1.2rem;
+  }
 }
 </style>

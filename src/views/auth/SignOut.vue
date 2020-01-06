@@ -28,29 +28,29 @@ export default {
 
 <style lang="scss" scoped>
 .signOut {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    .form__submit {
-      width: 50%;
-      height: 5rem;
-      text-align: center;
-      border: 0.2rem solid $light;
-      font-size: 1.4rem;
-      font-weight: 600;
-      border-radius: 5rem;
-      text-transform: uppercase;
-      background-color: $blue;
-      color: $light;
+  .form__submit {
+    width: 50%;
+    height: 5rem;
+    text-align: center;
+    border: 0.2rem solid $light;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-radius: 5rem;
+    text-transform: uppercase;
+    background-color: $blue;
+    color: $light;
 
-      &:hover {
-        background-color: $light;
-        color: $blue;
-        transition: background-color 200ms ease-in-out;
-      }
+    &:hover {
+      background-color: $light;
+      color: $blue;
+      transition: background-color 200ms ease-in-out;
     }
+  }
 }
 </style>

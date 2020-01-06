@@ -3,18 +3,12 @@
     <BaseAppTitle />
 
     <div class="actions">
-      <button
-        class="elevation-3 actions__button actions__button--light"
-        @click="goSignIn"
+      <v-btn
+        round
+        large
       >
         sign in
-      </button>
-      <button
-        class="elevation-3 actions__button"
-        @click="goSignUp"
-      >
-        sign up
-      </button>
+      </v-btn>
     </div>
   </div>
 </template>
@@ -37,38 +31,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .landing {
-        background-image: url('../assets/img/thriftier-pig.svg');
-        background-position: 50% calc(50% - 2rem);
-        background-size: 90vw;
-        background-repeat: no-repeat;
-        width: 100%;
-        height: 100%;
-        padding: 4rem 2rem 1rem 2rem;
-        color: $light;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+.landing {
+  position: relative;
+  background-image: url('../assets/img/thriftier-pig.svg');
+  background-position: 50% calc(50% - 2rem);
+  background-size: 90vw;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  padding: 4rem 2rem 1rem 2rem;
+  color: $light;
 
-        .actions {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-
-            &__button {
-                height: 70px;
-                background-color: $grey-dark;
-                color: $black;
-                font-size: 24px;
-                font-weight: 600;
-                text-transform: uppercase;
-                border-radius: 35px;
-                margin: 10px 0;
-
-                &--light {
-                    background-color: $light;
-                }
-            }
-        }
-    }
+  .actions {
+    position: absolute;
+    bottom: 15vh;
+  }
+}
 </style>

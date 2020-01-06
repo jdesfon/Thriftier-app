@@ -42,13 +42,16 @@ export default {
       return `${this.period.budget} €`;
     },
     formattedRemaining() {
-      return `${Number(this.period.remaining).toFixed(2)} €`;
+      return `${Number(this.period.remaining)
+        .toFixed(2)} €`;
     },
     formattedPerDay() {
-      return `${Number(this.period.perDay).toFixed(2)} €/day`;
+      return `${Number(this.period.perDay)
+        .toFixed(2)} €/day`;
     },
     formattedEndDate() {
-      const formattedDate = moment(this.period.endDate).format('MMM Do, YYYY');
+      const formattedDate = moment(this.period.endDate)
+        .format('MMM Do, YYYY');
       return `closed on: ${formattedDate}`;
     },
   },
@@ -65,65 +68,65 @@ export default {
 
 <style lang="scss">
 .periodCard {
-    cursor: pointer;
-    background-color: $light;
-    width: 100%;
-    height: 76px;
-    border-radius: 0.9rem;
-    padding: 0.9rem 1.8rem;
-    margin-bottom: 0.5rem;
+  cursor: pointer;
+  background-color: $light;
+  width: 100%;
+  height: 76px;
+  border-radius: 0.9rem;
+  padding: 0.9rem 1.8rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: $body-font-family;
+  font-weight: 600;
+
+  &__lead {
     display: flex;
-    justify-content: space-between;
-    font-family: $body-font-family;
-    font-weight: 600;
+    flex-direction: column;
+    align-items: flex-start;
 
-    &__lead {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
+    .lead {
+      &__title {
+        color: $dark;
+      }
 
-        .lead {
-            &__title {
-                color: $dark;
-            }
+      &__budget {
+        line-height: 1.1rem;
+        font-size: 0.8rem;
+        color: $grey-dark;
+      }
 
-            &__budget {
-                line-height: 1.1rem;
-                font-size: 0.8rem;
-                color: $grey-dark;
-            }
-
-            &__records {
-                line-height: 1.1rem;
-                color: $grey-dark;
-                font-size: 0.8rem;
-            }
-        }
+      &__records {
+        line-height: 1.1rem;
+        color: $grey-dark;
+        font-size: 0.8rem;
+      }
     }
+  }
 
-    &__trail {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+  &__trail {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 
-        .trail {
-            &__remaining {
-                font-size: 1.75rem;
-                color: $green;
-            }
+    .trail {
+      &__remaining {
+        font-size: 1.75rem;
+        color: $green;
+      }
 
-            &__per-day {
-                line-height: 0.6rem;
-                font-size: 1rem;
-                color: $dark;
-            }
+      &__per-day {
+        line-height: 0.6rem;
+        font-size: 1rem;
+        color: $dark;
+      }
 
-            &__endDate {
-                line-height: 0.6rem;
-                font-size: 1rem;
-                color: $dark;
-            }
-        }
+      &__endDate {
+        line-height: 0.6rem;
+        font-size: 1rem;
+        color: $dark;
+      }
     }
+  }
 }
 </style>

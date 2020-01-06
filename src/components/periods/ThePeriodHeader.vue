@@ -42,10 +42,12 @@ export default {
   },
   computed: {
     remainingDays() {
-      return moment(this.period.endDate).diff(moment(), 'days');
+      return moment(this.period.endDate)
+        .diff(moment(), 'days');
     },
     formattedPerDay() {
-      return Number(this.period.perDay).toFixed(2);
+      return Number(this.period.perDay)
+        .toFixed(2);
     },
   },
 };
@@ -53,35 +55,37 @@ export default {
 
 <style lang="scss" scoped>
 .thePeriodHeader {
-    padding-top: 2rem;
-    padding-bottom: 0;
-    height: 100%;
-    width: 100%;
+  padding-top: 2rem;
+  padding-bottom: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: $light;
+
+  .header__nav {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    color: $light;
+    align-items: center;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
 
-    .header__nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-left: 0.7rem;
-        padding-right: 0.7rem;
-
-        .nav__title {
-            font-size: 1rem;
-        }
+    .nav__title {
+      font-size: 1rem;
     }
+  }
 
-    .header__infos {
-        padding-left: 1.7rem;
-        padding-right: 2rem;
-        padding-bottom: 0.5rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        font-size: 0.7rem;
-    }
-};
+  .header__infos {
+    padding-left: 1.7rem;
+    padding-right: 2rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 0.7rem;
+  }
+}
+
+;
 </style>

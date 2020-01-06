@@ -55,51 +55,52 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .theHomeHeader {
-        padding-top: 2rem;
-        padding-bottom: 0;
-        padding-left: 1.2rem;
-        padding-right: 1.2rem;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
+.theHomeHeader {
+  padding-top: 2rem;
+  padding-bottom: 0;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 
-        &__appBar {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+  &__appBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 
-          .appBar__logo  {
-              display: flex;
-              flex-direction: column;
-              justify-content: flex-start;
-              align-items: flex-start;
-              height: 5rem;
+    .appBar__logo {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      height: 5rem;
 
-              --line-height: 2rem;
-              img {
-                  height: var(--line-height);
-                  padding-right: 0.5rem;
-              }
+      --line-height: 2rem;
 
-              h1 {
-                  font-size: var(--line-height);
-                  font-weight: 600;
-                  color: $light;
-                  letter-spacing: 1px;
-              }
-          }
-        }
+      img {
+        height: var(--line-height);
+        padding-right: 0.5rem;
+      }
 
-        &__action {
-          display: flex;
-          justify-content: flex-end;
-        }
+      h1 {
+        font-size: var(--line-height);
+        font-weight: 600;
+        color: $light;
+        letter-spacing: 1px;
+      }
     }
+  }
 
-    .small--text {
-      font-size: 0.6rem;
-      font-weight: bold;
-    }
+  &__action {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.small--text {
+  font-size: 0.6rem;
+  font-weight: bold;
+}
 </style>

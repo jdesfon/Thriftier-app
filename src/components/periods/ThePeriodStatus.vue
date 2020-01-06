@@ -41,10 +41,12 @@ export default {
   },
   computed: {
     formattedRemaining() {
-      return `${Number(this.period.remaining).toFixed(2)} €`;
+      return `${Number(this.period.remaining)
+        .toFixed(2)} €`;
     },
     formattedRemainingPerDay() {
-      return `${Number(this.period.remainingPerDay).toFixed(2)} €/day`;
+      return `${Number(this.period.remainingPerDay)
+        .toFixed(2)} €/day`;
     },
     isDailyBudgetDecreasing() {
       const { perDay, remainingPerDay } = this.period;
@@ -61,7 +63,8 @@ export default {
       const remainingRatio = remainingPerDay / perDay;
       if (remainingRatio > 0.75 && remainingRatio < 0.95) {
         return 'periodStatus--orange';
-      } if (remainingRatio < 0.75) {
+      }
+      if (remainingRatio < 0.75) {
         return 'periodStatus--red';
       }
       return 'periodStatus--green';
@@ -72,55 +75,60 @@ export default {
 
 <style lang="scss" scoped>
 .periodStatus {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.3rem 1.7rem;
+  color: $light;
+  height: 100%;
+
+  &--red {
+    background-color: $red;
+  }
+;
+
+  &--orange {
+    background-color: $orange;
+  }
+;
+
+  &--green {
+    background-color: $green;
+  }
+;
+
+  &__title {
+    font-size: 0.7rem;
+    line-height: 0.9rem;
+  }
+
+  &__remaining,
+  &__daily-budget {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    padding: 1.3rem 1.7rem;
-    color: $light;
-    height: 100%;
+    height: 2.85;
+  }
 
-    &--red {
-      background-color: $red;
-    };
-    &--orange {
-      background-color: $orange;
-    };
-    &--green {
-      background-color: $green;
-    };
+  &__remaining {
+    align-items: flex-start;
 
-    &__title {
-        font-size: 0.7rem;
-        line-height: 0.9rem;
+    .remaining__value {
+      font-size: 2rem;
+      line-height: 2rem;
+      font-weight: 600;
     }
+  }
 
-    &__remaining,
-    &__daily-budget {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        height: 2.85;
+  &__daily-budget {
+    align-items: flex-end;
+
+    .daily__value {
+      display: flex;
+      align-items: flex-end;
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+      font-weight: 600;
     }
-
-    &__remaining {
-        align-items: flex-start;
-
-        .remaining__value {
-            font-size: 2rem;
-            line-height: 2rem;
-            font-weight: 600;
-        }
-    }
-
-    &__daily-budget {
-        align-items: flex-end;
-
-        .daily__value {
-            display: flex;
-            align-items: flex-end;
-            font-size: 1.2rem;
-            line-height: 1.2rem;
-            font-weight: 600;
-        }
-    }
+  }
 }
 </style>

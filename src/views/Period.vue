@@ -128,7 +128,8 @@ export default {
       fetchPeriod: FETCH_PERIOD,
     }),
     formatSpacerDate(date) {
-      return moment(date).format('MMM Do');
+      return moment(date)
+        .format('MMM Do');
     },
     groupTotal(expensesGroup) {
       return expensesGroup[1].reduce((acc, curr) => {
@@ -140,8 +141,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.period {
+<style lang="scss" scoped>.period {
   position: relative;
   height: 100vh;
 
@@ -153,16 +153,16 @@ export default {
     height: 5.5rem;
   }
 
-
   &__list {
     background-color: $light;
     height: calc(100% - 13rem);
     overflow-y: scroll;
     scroll-behavior: smooth;
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
     scrollbar-width: none;
+
     ::-webkit-scrollbar {
-      display: none;  /* Safari and Chrome */
+      display: none; /* Safari and Chrome */
     }
   }
 
