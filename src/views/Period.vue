@@ -167,13 +167,13 @@ export default {
   }
 
   .list-spacer {
-    background-color: $dark;
-    padding: 0 1.7rem;
+    background-color: $black;
+    padding: 0.3rem 1.7rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: $light;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     font-weight: 600;
   }
 

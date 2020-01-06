@@ -5,10 +5,10 @@ import 'vuetify/src/stylus/app.styl';
 Vue.use(Vuetify, {
   iconfont: 'md',
   theme: {
-    red: '#EA5F70',
-    orange: '#FF6A3C',
-    green: '#43A047',
-    blue: '#039BE5',
+    red: '#D50000',
+    orange: '#FF6D00',
+    green: '#00C853',
+    blue: '#00B8D4',
     dark: '#424242',
     grey: '#E0E0E0',
     greyDark: '#BDBDBD',

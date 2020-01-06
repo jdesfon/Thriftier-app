@@ -56,6 +56,9 @@ const routes = [
     name: 'period',
     component: Period,
   },
+  {
+    path: '*', redirect: { name: 'landing' },
+  },
 ];
 
 const router = new VueRouter({

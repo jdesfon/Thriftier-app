@@ -26,7 +26,6 @@
 
     <div class="theHomeHeader__action">
       <v-btn
-        class="ma-0 elevation-2"
         round
         small
         @click="handleCreatePeriodClick"
@@ -100,7 +99,9 @@ export default {
 }
 
 .small--text {
-  font-size: 0.6rem;
+  font-size: 0.9rem;
+  padding: 0 0.5rem;
   font-weight: bold;
+  color: $blue;
 }
 </style>

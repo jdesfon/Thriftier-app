@@ -83,7 +83,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 }
 
