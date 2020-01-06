@@ -5,18 +5,25 @@
       logo
     />
     <form>
-      <CustomTextField
+      <v-text-field
         v-model="code"
-        class="elevation-3 my-2"
-        placeholder="email confirmation code"
+        autofocus
+        background-color="white"
+        color="white"
+        dark
+        outline
+        label="confirmation code"
+        placeholder="XXXXXX"
       />
 
-      <button
-        class="form__submit my-2 elevation-2"
+      <v-btn
+        dark
+        round
+        block
         @click.prevent="handleSubmit"
       >
         confirm
-      </button>
+      </v-btn>
     </form>
   </div>
 </template>
@@ -25,13 +32,11 @@
 import { mapActions } from 'vuex';
 import { USER, CONFIRM_EMAIL } from '../../store/modules/user-types';
 import Header from '../../components/Header.vue';
-import CustomTextField from '../../components/inputs/CustomTextField.vue';
 
 export default {
   name: 'Confirm',
   components: {
     Header,
-    CustomTextField,
   },
   data: () => ({
     code: '',

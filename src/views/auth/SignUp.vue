@@ -6,34 +6,44 @@
       logo
     />
 
-    <form class="signIn__form">
-      <CustomTextField
+    <form class="signUp__form">
+      <v-text-field
         v-model="email"
-        class="elevation-3 my-2"
+        box
+        browser-autocomplete="email"
+        autofocus
+        dark
+        label="Email"
         placeholder="email"
-        :type="email"
+        type="email"
       />
 
-      <CustomTextField
+      <v-text-field
         v-model="password"
-        class="elevation-3 my-2"
+        box
+        dark
+        label="Password"
         placeholder="password"
         type="password"
       />
 
-      <CustomTextField
+      <v-text-field
         v-model="passwordConfirm"
-        class="elevation-3 my-2"
-        placeholder="confirm password"
+        box
+        dark
+        label="Confirm password"
+        placeholder="confirm your password"
         type="password"
       />
 
-      <button
-        class="form__submit my-2 elevation-2"
+      <v-btn
+        dark
+        round
+        block
         @click.prevent="handleSubmit"
       >
-        Sign up
-      </button>
+        sign up
+      </v-btn>
     </form>
   </div>
 </template>
@@ -41,13 +51,11 @@
 <script>
 import { mapActions } from 'vuex';
 import { USER, SIGN_UP } from '../../store/modules/user-types';
-import CustomTextField from '../../components/inputs/CustomTextField.vue';
 import Header from '../../components/Header.vue';
 
 export default {
   name: 'SignUp',
   components: {
-    CustomTextField,
     Header,
   },
   data: () => ({
@@ -79,29 +87,13 @@ export default {
   color: $light;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
-  &__form {
+  .header {
     flex-grow: 1;
   }
 
-  .form__submit {
-    width: 100%;
-    height: 5rem;
-    text-align: center;
-    border: 0.2rem solid $light;
-    font-size: 1.4rem;
-    font-weight: 600;
-    border-radius: 5rem;
-    text-transform: uppercase;
-    background-color: $blue;
-    color: $light;
-
-    &:hover {
-      background-color: $light;
-      color: $blue;
-      transition: background-color 200ms ease-in-out;
-    }
+  &__form {
+    flex-grow: 1;
   }
 }
 </style>
