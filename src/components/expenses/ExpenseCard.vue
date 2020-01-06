@@ -93,7 +93,8 @@ export default {
   }),
   computed: {
     formattedDate() {
-      return moment(this.expense.createdAt).format('MMM Do - HH:mm');
+      return moment(this.expense.createdAt)
+        .format('MMM Do - HH:mm');
     },
     expenseCategory() {
       return this.expense.categoryName ? this.expense.categoryName : 'uncategorized';
@@ -101,7 +102,10 @@ export default {
   },
   mounted() {
     if (this.expense.receipt) {
-      this.fetchReceiptUrl({ fileKey: this.expense.receipt, idExpense: this.idexpense })
+      this.fetchReceiptUrl({
+        fileKey: this.expense.receipt,
+        idExpense: this.idexpense,
+      })
         .then((receiptUrl) => {
           this.receiptUrl = receiptUrl;
         });
@@ -117,105 +121,107 @@ export default {
 
 <style lang="scss" scoped>
 .expenseCard {
-    &--collapse {
-        padding: 0 1.7rem;
-        height: 58px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+  &--collapse {
+    padding: 0 1.7rem;
+    height: 58px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    &--default {
-        background-color: $light;
-    }
+  &--default {
+    background-color: $light;
+  }
 
-    &--alternate {
-        background-color: $grey;
-    }
+  &--alternate {
+    background-color: $grey;
+  }
 
-    &__title {
-        font-weight: 400;
-        width: 50%;
-    }
+  &__title {
+    font-weight: 400;
+    width: 50%;
+  }
 
-    &__amount {
-        background-color: $dark;
-        min-width: 5.5rem;
-        border-radius: 1rem;
-        padding: 0.5rem 1rem;
-        line-height: 1rem;
-        font-weight: bold;
-        color: $light;
-        text-align: center;
-    }
+  &__amount {
+    background-color: $dark;
+    min-width: 5.5rem;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    line-height: 1rem;
+    font-weight: bold;
+    color: $light;
+    text-align: center;
+  }
 
-    &__details {
-        height: 15.3rem;
-        padding: 1.7rem;
-        background-color: $light;
-        display: flex;
-        justify-content: space-between;
+  &__details {
+    height: 15.3rem;
+    padding: 1.7rem;
+    background-color: $light;
+    display: flex;
+    justify-content: space-between;
 
-        .details__infos {
-            flex-grow: 1;
+    .details__infos {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .infos {
+        &__category {
+          display: flex;
+          flex-direction: column;
+
+          &--title {
+            font-size: 0.9rem;
+            font-weight: 300;
+          }
+
+          &--name {
+            font-size: 0.9rem;
+            font-weight: 600;
+          }
+        }
+      ;
+
+        &__footer {
+          display: flex;
+          justify-content: space-between;
+
+          .footer__text {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
 
-            .infos {
-                &__category {
-                    display: flex;
-                    flex-direction: column;
-
-                    &--title {
-                        font-size: 0.9rem;
-                        font-weight: 300;
-                    }
-
-                    &--name {
-                        font-size: 0.9rem;
-                        font-weight: 600;
-                    }
-                };
-
-                &__footer {
-                    display: flex;
-                    justify-content: space-between;
-
-                    .footer__text {
-                        display: flex;
-                        flex-direction: column;
-
-                        &--price {
-                            font-size: 1.9rem;
-                            font-weight: 600;
-                            line-height: 2rem;
-                        }
-
-                        &--date {
-                            font-size: 0.9rem;
-                        }
-                    }
-
-                    .footer__action {
-                        display: flex;
-                        align-items: flex-end;
-                    }
-                };
+            &--price {
+              font-size: 1.9rem;
+              font-weight: 600;
+              line-height: 2rem;
             }
 
-        }
+            &--date {
+              font-size: 0.9rem;
+            }
+          }
 
-        .details__receipt {
-            background-color: $grey;
-            padding: 0 1.5rem;
+          .footer__action {
             display: flex;
-            max-height: 100%;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.8rem;
+            align-items: flex-end;
+          }
         }
+      ;
+      }
 
     }
+
+    .details__receipt {
+      background-color: $grey;
+      padding: 0 1.5rem;
+      display: flex;
+      max-height: 100%;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+  }
 }
 </style>

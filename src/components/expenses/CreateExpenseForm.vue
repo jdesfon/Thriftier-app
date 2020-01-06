@@ -224,27 +224,28 @@ export default {
 
 <style lang="scss" scoped>
 .createExpenseForm {
-    padding: 1.2rem;
+  padding: 1.2rem;
 }
 
 .receipt {
   display: flex;
 
   &__preview {
-      position: relative;
-      .preview__undo {
-        cursor: pointer;
-        position: absolute;
-        right: 0;
-      }
+    position: relative;
 
-      .preview__image {
-        max-width: 150px;
-        max-height: 200px;
-        object-fit: contain;
-        width:auto;
-        height:auto;
-      }
+    .preview__undo {
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+    }
+
+    .preview__image {
+      max-width: 150px;
+      max-height: 200px;
+      object-fit: contain;
+      width: auto;
+      height: auto;
+    }
   }
 
   &__upload {
@@ -257,10 +258,11 @@ export default {
 }
 
 .submit-button {
-    margin-top: 1rem;
-    &__text {
-      color: $light;
-      font-weight: bold;
-    }
+  margin-top: 1rem;
+
+  &__text {
+    color: $light;
+    font-weight: bold;
+  }
 }
 </style>

@@ -43,14 +43,14 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 
-    .nav-icon {
-        color: $blue;
-        font-weight: 800;
-        font-size: 2rem;
-    }
+  .nav-icon {
+    color: $blue;
+    font-weight: 800;
+    font-size: 2rem;
+  }
 }
 </style>

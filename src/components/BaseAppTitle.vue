@@ -20,6 +20,7 @@ export default {
     font-size: 3rem;
     line-height: 3rem;
   }
+
   &__devise {
     font-size: 1rem;
     line-height: 1rem;

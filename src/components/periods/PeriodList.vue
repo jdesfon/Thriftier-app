@@ -45,10 +45,10 @@ export default {
 
 <style lang="scss" scoped>
 .periodList {
-    &__title {
-        color: $light;
-        font-size: 0.85rem;
-        padding: 0.15rem 0;
-    }
+  &__title {
+    color: $light;
+    font-size: 0.85rem;
+    padding: 0.15rem 0;
+  }
 }
 </style>

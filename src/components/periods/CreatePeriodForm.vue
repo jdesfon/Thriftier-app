@@ -144,7 +144,8 @@ export default {
       ],
       isStartDatePickerVisible: false,
       isEndDatePickerVisible: false,
-      startDate: new Date().toISOString().substr(0, 10),
+      startDate: new Date().toISOString()
+        .substr(0, 10),
       endDate: '',
     };
   },
@@ -154,24 +155,29 @@ export default {
     },
     formattedStartDate: {
       get() {
-        return this.startDate ? moment(this.startDate).format('MMM Do, YYYY') : '';
+        return this.startDate ? moment(this.startDate)
+          .format('MMM Do, YYYY') : '';
       },
       set(val) {
-        this.formattedStartDate = moment(val).format('MMM Do, YYYY');
+        this.formattedStartDate = moment(val)
+          .format('MMM Do, YYYY');
       },
     },
     formattedEndDate: {
       get() {
-        return this.endDate ? moment(this.endDate).format('MMM Do, YYYY') : '';
+        return this.endDate ? moment(this.endDate)
+          .format('MMM Do, YYYY') : '';
       },
       set(val) {
-        this.formattedEndDate = moment(val).format('MMM Do, YYYY');
+        this.formattedEndDate = moment(val)
+          .format('MMM Do, YYYY');
       },
     },
   },
   watch: {
     startDate(value) {
-      if (moment(value).isAfter(this.endDate)) {
+      if (moment(value)
+        .isAfter(this.endDate)) {
         this.endDate = null;
       }
     },
@@ -185,8 +191,10 @@ export default {
         const periodObj = {
           title: this.title,
           budget: this.budget,
-          startDate: moment(this.startDate).format('YYYY-MM-DD'),
-          endDate: moment(this.endDate).format('YYYY-MM-DD'),
+          startDate: moment(this.startDate)
+            .format('YYYY-MM-DD'),
+          endDate: moment(this.endDate)
+            .format('YYYY-MM-DD'),
         };
         this.createPeriod(periodObj);
         this.$refs.form.reset();
@@ -205,10 +213,11 @@ export default {
 }
 
 .submit-button {
-    margin-top: 1rem;
-    &__text {
-      color: $light;
-      font-weight: bold;
-    }
+  margin-top: 1rem;
+
+  &__text {
+    color: $light;
+    font-weight: bold;
+  }
 }
 </style>
