@@ -46,7 +46,7 @@ export default {
 <style lang="scss" scoped>
 .periodList {
   &__title {
-    color: $light;
+    color: $yellow;
     font-size: 0.85rem;
     padding: 0.15rem 0;
   }

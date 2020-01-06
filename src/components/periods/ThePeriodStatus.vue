@@ -97,7 +97,7 @@ export default {
 ;
 
   &__title {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     line-height: 0.9rem;
   }
 

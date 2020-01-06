@@ -138,18 +138,19 @@ export default {
   }
 
   &__title {
-    font-weight: 400;
     width: 50%;
+    color: $black;
+    font-weight: 600;
   }
 
   &__amount {
-    background-color: $dark;
+    // background-color: #757575;
+    // border-radius: 1rem;
     min-width: 5.5rem;
-    border-radius: 1rem;
     padding: 0.5rem 1rem;
     line-height: 1rem;
-    font-weight: bold;
-    color: $light;
+    font-weight: bolder;
+    color: $black;
     text-align: center;
   }
 

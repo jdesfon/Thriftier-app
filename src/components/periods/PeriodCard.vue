@@ -13,7 +13,10 @@
       v-if="period.isOpen"
       class="periodCard__trail"
     >
-      <span class="trail__remaining">{{ formattedRemaining }}</span>
+      <span
+        class="trail__remaining"
+        :class="status"
+      >{{ formattedRemaining }}</span>
       <span class="trail__per-day">{{ formattedPerDay }}</span>
     </div>
     <div
@@ -54,6 +57,17 @@ export default {
         .format('MMM Do, YYYY');
       return `closed on: ${formattedDate}`;
     },
+    status() {
+      const { perDay, remainingPerDay } = this.period;
+      const remainingRatio = remainingPerDay / perDay;
+      if (remainingRatio > 0.75 && remainingRatio < 0.95) {
+        return 'periodCard--orange';
+      }
+      if (remainingRatio < 0.75) {
+        return 'periodCard--red';
+      }
+      return 'periodCard--green';
+    },
   },
   methods: {
     goToPeriod() {
@@ -73,32 +87,50 @@ export default {
   width: 100%;
   height: 76px;
   border-radius: 0.9rem;
-  padding: 0.9rem 1.8rem;
+  padding: 0.9rem 1.3rem;
   margin-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
   font-family: $body-font-family;
   font-weight: 600;
 
+  &:hover {
+    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),
+    0px 6px 10px 0px rgba(0,0,0,0.14),
+    0px 1px 18px 0px rgba(0,0,0,0.12) !important;
+  }
+
+  &--red {
+    color: $red;
+  }
+
+  &--orange {
+    color: $orange;
+  }
+
+  &--green {
+    color: $green;
+  }
+
   &__lead {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: space-between;
+    height: 100%;
 
     .lead {
       &__title {
-        color: $dark;
+        color: $blue;
       }
 
       &__budget {
-        line-height: 1.1rem;
         font-size: 0.8rem;
-        color: $grey-dark;
+        color: $grey-darker;
       }
 
       &__records {
-        line-height: 1.1rem;
-        color: $grey-dark;
+        color: $grey-darker;
         font-size: 0.8rem;
       }
     }
@@ -108,21 +140,20 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    justify-content: space-between;
+    height: 100%;
 
     .trail {
       &__remaining {
         font-size: 1.75rem;
-        color: $green;
       }
 
       &__per-day {
-        line-height: 0.6rem;
         font-size: 1rem;
         color: $dark;
       }
 
       &__endDate {
-        line-height: 0.6rem;
         font-size: 1rem;
         color: $dark;
       }
