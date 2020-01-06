@@ -5,10 +5,15 @@
     <v-btn
       fab
       small
-      class="elevation-0"
+      dark
       @click="redirectTo"
     >
-      <i class="material-icons nav-icon">keyboard_arrow_left</i>
+      <v-icon
+        large
+        style="height: auto;"
+      >
+        keyboard_arrow_left
+      </v-icon>
     </v-btn>
   </div>
 </template>

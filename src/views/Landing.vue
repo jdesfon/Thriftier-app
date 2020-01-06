@@ -6,9 +6,14 @@
       <v-btn
         round
         large
+        dark
+        @click="goSignIn"
       >
         sign in
       </v-btn>
+      <router-link to="/auth/sign-up">
+        <span class="white--text">Sign up</span>
+      </router-link>
     </div>
   </div>
 </template>
@@ -35,7 +40,8 @@ export default {
   position: relative;
   background-image: url('../assets/img/thriftier-pig.svg');
   background-position: 50% calc(50% - 2rem);
-  background-size: 90vw;
+  background-size: 300px 300px;
+  background-attachment: fixed;
   background-repeat: no-repeat;
   width: 100%;
   height: 100%;
@@ -45,6 +51,12 @@ export default {
   .actions {
     position: absolute;
     bottom: 15vh;
+    max-width: 300px;
+    width: 80vw;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>
