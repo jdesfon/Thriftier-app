@@ -3,7 +3,9 @@ import config from '../../config';
 import endpoints from '../../api/endpoints';
 
 import {
+  CLOSE_PERIOD,
   CREATE_PERIOD,
+  DELETE_PERIOD,
   FETCH_PERIOD,
   GET_CLOSE_PERIODS,
   GET_OPEN_PERIODS,
@@ -14,6 +16,13 @@ import {
 } from './period-types';
 
 export const actions = {
+  [CLOSE_PERIOD]: async ({ commit }, { periodId }) => {
+    try {
+      await API.put(config.API_NAME, endpoints.closePeriod(periodId));
+    } catch (error) {
+      commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
+    }
+  },
   [CREATE_PERIOD]: async ({ commit }, {
     title,
     budget,
@@ -26,6 +35,13 @@ export const actions = {
           title, budget, startDate, endDate,
         },
       });
+    } catch (error) {
+      commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
+    }
+  },
+  [DELETE_PERIOD]: async ({ commit }, { periodId }) => {
+    try {
+      await API.del(config.API_NAME, endpoints.deletePeriod(periodId));
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
     }

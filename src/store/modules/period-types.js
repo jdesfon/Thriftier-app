@@ -1,7 +1,9 @@
 // module name
 export const PERIOD = 'period';
 // actions
+export const CLOSE_PERIOD = 'CLOSE_PERIOD';
 export const CREATE_PERIOD = 'CREATE_PERIOD';
+export const DELETE_PERIOD = 'DELETE_PERIOD';
 export const LIST_PERIODS = 'LIST_PERIODS';
 export const FETCH_PERIOD = 'FETCH_PERIOD';
 // mutations
