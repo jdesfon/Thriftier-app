@@ -24,7 +24,7 @@
             {{ formatSpacerDate(expensesGroup[0]) }}
           </span>
           <span>
-            total {{ groupTotal(expensesGroup) }} €
+            {{ groupTotal(expensesGroup) }} €
           </span>
         </div>
         <template v-for="(expense, expenseIndex) of expensesGroup[1]">
