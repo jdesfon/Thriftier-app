@@ -5,6 +5,7 @@ import endpoints from '../../api/endpoints';
 
 import {
   CREATE_EXPENSE,
+  DELETE_EXPENSE,
   GET_EXPENSES,
   FETCH_RECEIPT_URL,
   LIST_EXPENSES,
@@ -43,6 +44,13 @@ export const actions = {
         },
       });
       commit('notification/NOTIFICATION_INFO', 'expense created', { root: true });
+    } catch (error) {
+      commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
+    }
+  },
+  [DELETE_EXPENSE]: async ({ commit }, { idExpense }) => {
+    try {
+      await API.del(config.API_NAME, endpoints.deleteExpense(idExpense));
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
     }

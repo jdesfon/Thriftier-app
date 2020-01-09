@@ -2,6 +2,7 @@
 export const EXPENSE = 'expense';
 // actions
 export const CREATE_EXPENSE = 'CREATE_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const LIST_EXPENSES = 'LIST_EXPENSES';
 export const FETCH_RECEIPT_URL = 'FETCH_RECEIPT_URL';
 // mutations

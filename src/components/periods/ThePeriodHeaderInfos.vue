@@ -2,7 +2,7 @@
   <div class="thePeriodHeaderInfos">
     <span>budget <b>{{ period.budget }} €</b></span>
     <span>
-      <b>{{ remainingDays }}</b> days left
+      <b>{{ remainingDays }}</b>
     </span>
   </div>
 </template>
@@ -19,7 +19,18 @@ export default {
   },
   computed: {
     remainingDays() {
-      return moment(this.period.endDate).diff(moment(), 'days');
+      const endDate = moment(this.period.endDate);
+      const now = moment();
+      const daysDiff = moment([
+        endDate.get('year'),
+        endDate.get('month'),
+        endDate.get('date'),
+      ]).diff(moment([
+        now.get('year'),
+        now.get('month'),
+        now.get('date'),
+      ]), 'days');
+      return daysDiff > 1 ? `${daysDiff} days left` : `${daysDiff} day left`;
     },
   },
 };
