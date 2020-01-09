@@ -132,10 +132,11 @@ export default {
         .format('MMM Do');
     },
     groupTotal(expensesGroup) {
-      return expensesGroup[1].reduce((acc, curr) => {
+      const groupTotal = expensesGroup[1].reduce((acc, curr) => {
         const sum = acc + curr.amount;
         return sum;
       }, 0);
+      return Number(groupTotal).toFixed(2);
     },
   },
 };

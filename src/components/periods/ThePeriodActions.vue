@@ -24,7 +24,7 @@
             Close period
           </v-list-tile-title>
           <v-list-tile-sub-title>
-            this period has ends. No more expenses will be added
+            No more expenses can be added
           </v-list-tile-sub-title>
         </v-list-tile-content>
       </v-list-tile>
@@ -84,6 +84,10 @@ export default {
     }),
     confirmAction() {
       this.currentAction({ periodId: this.period.idperiod });
+      this.isConfirmDialogVisible = false;
+      this.$emit('onClosePeriodActions');
+    },
+    cancelAction() {
       this.isConfirmDialogVisible = false;
       this.$emit('onClosePeriodActions');
     },

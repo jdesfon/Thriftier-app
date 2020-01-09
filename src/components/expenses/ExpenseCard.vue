@@ -43,7 +43,10 @@
             <span class="footer__text--date">{{ formattedDate }}</span>
           </div>
           <div class="footer__action">
-            <v-icon color="black">
+            <v-icon
+              color="black"
+              @click="isExpenseActionsVisible = true"
+            >
               more_vert
             </v-icon>
           </div>
@@ -67,16 +70,28 @@
         attached receipt
       </div>
     </div>
+
+    <v-bottom-sheet
+      v-model="isExpenseActionsVisible"
+      inset
+    >
+      <TheExpenseActions
+        :expense="expense"
+        @onCloseExpenseActions="isExpenseActionsVisible = false"
+      />
+    </v-bottom-sheet>
   </div>
 </template>
 
 <script>
 import moment from 'moment';
 import { mapActions } from 'vuex';
+import TheExpenseActions from './TheExpenseActions.vue';
 import { EXPENSE, FETCH_RECEIPT_URL } from '../../store/modules/expense-types';
 
 export default {
   name: 'ExpenseCard',
+  components: { TheExpenseActions },
   props: {
     expense: {
       type: Object,
@@ -89,6 +104,7 @@ export default {
   },
   data: () => ({
     isDetailCardVisible: false,
+    isExpenseActionsVisible: false,
     receiptUrl: null,
   }),
   computed: {
