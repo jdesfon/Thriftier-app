@@ -39,21 +39,22 @@
 
     <v-btn
       class="addButton"
-      color="blue"
       fab
       @click="createExpenseSheet = true"
     >
       <v-icon
-        color="white"
+        color="black"
         style="height: auto;"
       >
         add
       </v-icon>
     </v-btn>
 
-    <v-bottom-sheet
+    <v-dialog
       v-model="createExpenseSheet"
-      inset
+      fullscreen
+      transition="dialog-bottom-transition"
+      hide-overlay
     >
       <div
         v-if="fkPeriod"
@@ -71,7 +72,7 @@
           @close="createExpenseSheet = false"
         />
       </div>
-    </v-bottom-sheet>
+    </v-dialog>
   </div>
 </template>
 
@@ -168,12 +169,12 @@ export default {
   }
 
   .list-spacer {
-    background-color: $black;
+    background-color: $dark;
     padding: 0.3rem 1.7rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: $light;
+    color: $light-alternate;
     font-size: 0.9rem;
     font-weight: 600;
   }
@@ -182,11 +183,12 @@ export default {
     position: absolute;
     opacity: 0.7;
     bottom: 1rem;
-    left: 1rem;
+    background-color: rgba(245,245,245,0.7) !important;
   }
 }
 
 .createExpenseSheet {
   background-color: $light;
+  height: 100%;
 }
 </style>

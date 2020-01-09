@@ -11,9 +11,11 @@
       <PeriodList />
     </section>
 
-    <v-bottom-sheet
+    <v-dialog
       v-model="createPeriodSheet"
-      inset
+      fullscreen
+      transition="dialog-bottom-transition"
+      hide-overlay
     >
       <div class="createPeriodSheet">
         <v-btn
@@ -25,7 +27,7 @@
         </v-btn>
         <CreatePeriodForm @close="createPeriodSheet = false" />
       </div>
-    </v-bottom-sheet>
+    </v-dialog>
   </div>
 </template>
 
@@ -97,5 +99,6 @@ export default {
 
 .createPeriodSheet {
   background-color: $light;
+  height: 100%;
 }
 </style>

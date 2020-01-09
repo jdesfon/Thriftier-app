@@ -4,7 +4,7 @@
       <div class="appBar__logo">
         <img
           class="app-logo"
-          src="../../assets/img/thriftier-pig.svg"
+          src="../../assets/img/thriftier-black.svg"
           alt="app logo"
         >
         <h1>thriftier</h1>
@@ -16,7 +16,7 @@
       >
         <v-icon
           large
-          color="white"
+          color="dark"
         >
           power_settings_new
         </v-icon>
@@ -26,11 +26,12 @@
 
     <div class="theHomeHeader__action">
       <v-btn
+        class="action__btn elevation-1"
         round
         small
         @click="handleCreatePeriodClick"
       >
-        <span class="small--text">create period</span>
+        <span class="px-2">create period</span>
       </v-btn>
     </div>
   </div>
@@ -86,7 +87,7 @@ export default {
       h1 {
         font-size: var(--line-height);
         font-weight: 600;
-        color: $light;
+        color: $dark;
         letter-spacing: 1px;
       }
     }
@@ -96,12 +97,11 @@ export default {
     display: flex;
     justify-content: flex-end;
   }
-}
 
-.small--text {
-  font-size: 0.9rem;
-  padding: 0 0.5rem;
-  font-weight: bold;
-  color: $blue;
+  .action__btn {
+    border: 1px solid $dark;
+    background-color: $light !important;
+    text-transform: lowercase;
+  }
 }
 </style>

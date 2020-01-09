@@ -1,6 +1,5 @@
 <template>
   <div class="thePeriodHeaderInfos">
-    <span>budget <b>{{ period.budget }} €</b></span>
     <span>
       <b>{{ remainingDays }}</b>
     </span>
@@ -30,7 +29,7 @@ export default {
         now.get('month'),
         now.get('date'),
       ]), 'days');
-      return daysDiff > 1 ? `${daysDiff} days left` : `${daysDiff} day left`;
+      return daysDiff > 1 ? `${daysDiff} days before closing` : `${daysDiff} day before closing`;
     },
   },
 };
@@ -41,9 +40,9 @@ export default {
   padding-left: 1.7rem;
   padding-right: 2rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-end;
   font-size: 0.8rem;
-  color: $light;
+  color: $grey-dark;
 }
 </style>

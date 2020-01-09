@@ -1,7 +1,6 @@
 <template>
   <div
     class="periodStatus"
-    :class="status"
   >
     <div class="periodStatus__remaining">
       <span class="periodStatus__title">remaining</span>
@@ -11,18 +10,10 @@
       <span class="periodStatus__title">daily budget</span>
       <span class="daily__value">
         <v-icon
-          v-if="isDailyBudgetDecreasing"
-          color="white"
+          :color="status"
           small
         >
-          arrow_downward
-        </v-icon>
-        <v-icon
-          v-if="isDailyBudgetIncreasing"
-          color="white"
-          small
-        >
-          arrow_upward
+          fiber_manual_record
         </v-icon>
         {{ formattedRemainingPerDay }}
       </span>
@@ -48,26 +39,16 @@ export default {
       return `${Number(this.period.remainingPerDay)
         .toFixed(2)} €/day`;
     },
-    isDailyBudgetDecreasing() {
-      const { perDay, remainingPerDay } = this.period;
-      const remainingRatio = remainingPerDay / perDay;
-      return remainingRatio < 1;
-    },
-    isDailyBudgetIncreasing() {
-      const { perDay, remainingPerDay } = this.period;
-      const remainingRatio = remainingPerDay / perDay;
-      return remainingRatio > 1;
-    },
     status() {
       const { perDay, remainingPerDay } = this.period;
       const remainingRatio = remainingPerDay / perDay;
       if (remainingRatio > 0.75 && remainingRatio < 0.95) {
-        return 'periodStatus--orange';
+        return 'orange';
       }
       if (remainingRatio < 0.75) {
-        return 'periodStatus--red';
+        return 'red';
       }
-      return 'periodStatus--green';
+      return 'green';
     },
   },
 };
@@ -78,23 +59,8 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 1.3rem 1.7rem;
-  color: $light;
+  color: $dark;
   height: 100%;
-
-  &--red {
-    background-color: $red;
-  }
-;
-
-  &--orange {
-    background-color: $orange;
-  }
-;
-
-  &--green {
-    background-color: $green;
-  }
-;
 
   &__title {
     font-size: 0.8rem;

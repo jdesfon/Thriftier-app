@@ -5,7 +5,7 @@
       class="ma-0"
       to="/home"
     >
-      <v-icon color="white">
+      <v-icon color="dark">
         keyboard_arrow_left
       </v-icon>
     </v-btn>
@@ -17,7 +17,7 @@
       class="ma-0"
       @click="handleMenuClick"
     >
-      <v-icon color="white">
+      <v-icon color="dark">
         more_vert
       </v-icon>
     </v-btn>
@@ -48,6 +48,7 @@ export default {
   align-items: center;
   padding-left: 0.7rem;
   padding-right: 0.7rem;
+  color: $dark;
 
   &__title {
     font-size: 1rem;

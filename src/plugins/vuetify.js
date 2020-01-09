@@ -16,7 +16,7 @@ Vue.use(Vuetify, {
     themes: {
       isLight: true,
       light: {
-        background: '#03A9F4',
+        background: '#FAFAFA',
       },
       dark: {
         background: '#424242',

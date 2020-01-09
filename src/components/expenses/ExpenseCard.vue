@@ -137,6 +137,8 @@ export default {
 
 <style lang="scss" scoped>
 .expenseCard {
+  border-bottom: 0.5px solid $dark;
+
   &--collapse {
     padding: 0 1.7rem;
     height: 58px;
@@ -150,18 +152,16 @@ export default {
   }
 
   &--alternate {
-    background-color: $grey;
+    background-color: $light-alternate;
   }
 
   &__title {
     width: 50%;
-    color: $black;
+    color: $dark;
     font-weight: 600;
   }
 
   &__amount {
-    // background-color: #757575;
-    // border-radius: 1rem;
     min-width: 5.5rem;
     padding: 0.5rem 1rem;
     line-height: 1rem;

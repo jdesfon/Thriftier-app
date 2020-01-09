@@ -1,12 +1,13 @@
 <template>
   <div
-    class="periodCard elevation-2"
+    class="periodCard elevation-1"
+    :class="status"
     @click="goToPeriod"
   >
     <div class="periodCard__lead">
       <span class="lead__title">{{ period.title }}</span>
       <span class="lead__budget">{{ formattedBuget }}</span>
-      <span class="lead__records">{{ period.totalRecords }} records</span>
+      <span class="lead__records">{{ formattedEndDate }}</span>
     </div>
 
     <div
@@ -15,7 +16,6 @@
     >
       <span
         class="trail__remaining"
-        :class="status"
       >{{ formattedRemaining }}</span>
       <span class="trail__per-day">{{ formattedPerDay }}</span>
     </div>
@@ -53,19 +53,24 @@ export default {
         .toFixed(2)} €/day`;
     },
     formattedEndDate() {
-      const formattedDate = moment(this.period.endDate)
+      return moment(this.period.endDate)
         .format('MMM Do, YYYY');
-      return `closed on: ${formattedDate}`;
     },
     status() {
       const { perDay, remainingPerDay } = this.period;
       const remainingRatio = remainingPerDay / perDay;
+      if (this.period.isOpen === 0) {
+        return '';
+      }
+
       if (remainingRatio > 0.75 && remainingRatio < 0.95) {
         return 'periodCard--orange';
       }
+
       if (remainingRatio < 0.75) {
         return 'periodCard--red';
       }
+
       return 'periodCard--green';
     },
   },
@@ -86,30 +91,31 @@ export default {
   background-color: $light;
   width: 100%;
   height: 76px;
-  border-radius: 0.9rem;
+  border-radius: .5rem;
   padding: 0.9rem 1.3rem;
   margin-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
   font-family: $body-font-family;
   font-weight: 600;
+  color: $black;
 
   &:hover {
-    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),
-    0px 6px 10px 0px rgba(0,0,0,0.14),
-    0px 1px 18px 0px rgba(0,0,0,0.12) !important;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),
+     0px 2px 2px 0px rgba(0,0,0,0.14),
+     0px 1px 5px 0px rgba(0,0,0,0.12) !important;
   }
 
   &--red {
-    color: $red;
+    border-left: .5rem solid $red;
   }
 
   &--orange {
-    color: $orange;
+    border-left: .5rem solid $orange;
   }
 
   &--green {
-    color: $green;
+    border-left: .5rem solid $green;
   }
 
   &__lead {
@@ -121,7 +127,7 @@ export default {
 
     .lead {
       &__title {
-        color: $blue;
+        color: $black;
       }
 
       &__budget {
@@ -142,6 +148,7 @@ export default {
     align-items: flex-end;
     justify-content: space-between;
     height: 100%;
+    color: $dark;
 
     .trail {
       &__remaining {
@@ -150,12 +157,10 @@ export default {
 
       &__per-day {
         font-size: 1rem;
-        color: $dark;
       }
 
       &__endDate {
         font-size: 1rem;
-        color: $dark;
       }
     }
   }
