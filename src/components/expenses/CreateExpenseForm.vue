@@ -54,27 +54,26 @@
         <div class="receipt__preview">
           <v-icon
             v-show="receipt"
-            class="preview__undo"
+            class="preview__undo elevation-2 pa-1"
             color="white"
             @click="handleClearUpload"
           >
             close
           </v-icon>
 
-          <img
-            v-if="receipt"
-            id="preview__image"
-            alt="receipt"
+          <div
             class="preview__image"
+            @click="handlePreviewImageClick"
           >
+            <img
+              v-if="receipt"
+              id="preview__image"
+              alt="receipt"
+              class="preview__image-container"
+            >
 
-          <img
-            v-else
-            id="preview__default"
-            alt="no-receipt"
-            class="preview__image"
-            src="../../assets/img/attached_receipt.png"
-          >
+            <span v-else>no receipt</span>
+          </div>
         </div>
 
         <div class="receipt__upload">
@@ -193,16 +192,23 @@ export default {
         this.notifyError('Form is invalid!');
       }
     },
+    handlePreviewImageClick() {
+      if (!this.receipt) {
+        this.$refs.fileUpload.click();
+      }
+    },
     onFileUpload(event) {
       const file = event.target.files[0];
       const { size, type } = file;
 
       if (size > config.MAX_ATTACHMENT_SIZE) {
         this.notifyError(`Please pick a file small than ${config.MAX_ATTACHMENT_SIZE / 1000000} Mb`);
+        return;
       }
 
       if (!config.AUTHORIZED_FILE_TYPES.includes(type)) {
         this.notifyError('This type of file is not authorized');
+        return;
       }
 
       const reader = new FileReader();
@@ -234,17 +240,29 @@ export default {
     position: relative;
 
     .preview__undo {
+      background-color: $dark;
       cursor: pointer;
       position: absolute;
-      right: 0;
+      right: 0px;
+      top: 0px;
     }
 
     .preview__image {
-      max-width: 150px;
-      max-height: 200px;
-      object-fit: contain;
-      width: auto;
-      height: auto;
+      width: 150px;
+      height: 200px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $grey;
+
+      &-container {
+        max-width: 150px;
+        max-height: 200px;
+        object-fit: contain;
+        width: auto;
+        height: auto;
+      }
     }
   }
 
