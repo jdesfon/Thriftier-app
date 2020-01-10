@@ -17,7 +17,10 @@
       transition="dialog-bottom-transition"
       hide-overlay
     >
-      <div class="createPeriodSheet">
+      <div
+        v-touch="{ down: () => createPeriodSheet = false }"
+        class="createPeriodSheet"
+      >
         <v-btn
           icon
           color="white"

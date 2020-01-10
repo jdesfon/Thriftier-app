@@ -58,6 +58,7 @@
     >
       <div
         v-if="fkPeriod"
+        v-touch="{ down: () => createExpenseSheet = false }"
         class="createExpenseSheet"
       >
         <v-btn

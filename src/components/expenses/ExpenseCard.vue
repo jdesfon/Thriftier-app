@@ -53,21 +53,19 @@
         </div>
       </div>
 
-      <v-img
-        v-if="receiptUrl"
-        contain
-        aspect-ratio="1"
-        max-height="205px"
-        max-width="210px"
-        position="right bottom"
-        :src="receiptUrl"
-      />
-
       <div
-        v-if="!receiptUrl"
         class="details__receipt"
       >
-        attached receipt
+        <v-img
+          v-if="receiptUrl"
+          contain
+          max-height="168"
+          position="center center"
+          :src="receiptUrl"
+        />
+        <span v-else>
+          no receipt
+        </span>
       </div>
     </div>
 
@@ -156,18 +154,19 @@ export default {
   }
 
   &__title {
-    width: 50%;
+    width: 60%;
     color: $dark;
     font-weight: 600;
   }
 
   &__amount {
+    width: calc(40% - 28px);
     min-width: 5.5rem;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0;
     line-height: 1rem;
     font-weight: bolder;
     color: $black;
-    text-align: center;
+    text-align: right;
   }
 
   &__details {
@@ -231,9 +230,10 @@ export default {
 
     .details__receipt {
       background-color: $grey;
-      padding: 0 1.5rem;
+      width: 8rem;
+      height: 12rem;
+      max-height: 12rem;
       display: flex;
-      max-height: 100%;
       justify-content: center;
       align-items: center;
       font-size: 0.8rem;
