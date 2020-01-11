@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+    <BaseLoader :is-loading="isLoading" />
+
     <div class="home__header">
       <TheHomeHeader
         @onCreatePeriod="onCreatePeriodClick"
@@ -38,24 +40,30 @@
 import { mapActions } from 'vuex';
 import { USER, SIGN_OUT } from '../store/modules/user-types';
 import { PERIOD, LIST_PERIODS } from '../store/modules/period-types';
-
-import TheHomeHeader from '../components/home/TheHomeHeader.vue';
+import BaseLoader from '../components/BaseLoader.vue';
 import CreatePeriodForm from '../components/periods/CreatePeriodForm.vue';
 import PeriodList from '../components/periods/PeriodList.vue';
+import TheHomeHeader from '../components/home/TheHomeHeader.vue';
 
 export default {
   name: 'Home',
   components: {
+    BaseLoader,
     CreatePeriodForm,
     PeriodList,
     TheHomeHeader,
   },
   data: () => ({
     createPeriodSheet: false,
+    isLoading: true,
   }),
   mounted() {
-    this.fetchOpenPeriods();
-    this.fetchClosePeriods();
+    Promise.all([
+      this.fetchOpenPeriods(),
+      this.fetchClosePeriods(),
+    ]).then(() => {
+      this.isLoading = false;
+    });
   },
   methods: {
     ...mapActions(USER, {
