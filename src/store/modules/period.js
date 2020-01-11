@@ -1,6 +1,7 @@
 import { API } from 'aws-amplify';
 import config from '../../config';
 import endpoints from '../../api/endpoints';
+import router from '../../router';
 
 import {
   CLOSE_PERIOD,
@@ -19,6 +20,7 @@ export const actions = {
   [CLOSE_PERIOD]: async ({ commit }, { periodId }) => {
     try {
       await API.put(config.API_NAME, endpoints.closePeriod(periodId));
+      router.replace({ name: 'home' });
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
     }
@@ -35,6 +37,7 @@ export const actions = {
           title, budget, startDate, endDate,
         },
       });
+      router.replace({ name: 'home' });
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
     }
@@ -42,6 +45,7 @@ export const actions = {
   [DELETE_PERIOD]: async ({ commit }, { periodId }) => {
     try {
       await API.del(config.API_NAME, endpoints.deletePeriod(periodId));
+      router.replace({ name: 'home' });
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
     }

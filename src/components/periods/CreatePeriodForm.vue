@@ -32,7 +32,7 @@
       >
         <template v-slot:activator="{ on }">
           <v-text-field
-            v-model="formattedStartDate"
+            v-model="startDate"
             label="Start date"
             placeholder="enter a start date"
             readonly
@@ -75,7 +75,7 @@
       >
         <template v-slot:activator="{ on }">
           <v-text-field
-            v-model="formattedEndDate"
+            v-model="endDate"
             label="End date"
             placeholder="enter an end date"
             readonly
@@ -152,26 +152,6 @@ export default {
   computed: {
     minEndDate() {
       return this.startDate ? this.startDate : null;
-    },
-    formattedStartDate: {
-      get() {
-        return this.startDate ? moment(this.startDate)
-          .format('MMM Do, YYYY') : '';
-      },
-      set(val) {
-        this.formattedStartDate = moment(val)
-          .format('MMM Do, YYYY');
-      },
-    },
-    formattedEndDate: {
-      get() {
-        return this.endDate ? moment(this.endDate)
-          .format('MMM Do, YYYY') : '';
-      },
-      set(val) {
-        this.formattedEndDate = moment(val)
-          .format('MMM Do, YYYY');
-      },
     },
   },
   watch: {

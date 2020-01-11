@@ -8,6 +8,7 @@ export const FETCH_RECEIPT_URL = 'FETCH_RECEIPT_URL';
 // mutations
 export const SET_EXPENSES = 'SET_EXPENSES';
 export const SET_RECEIPT_URL = 'SET_RECEIPT_URL';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 // getters
 export const GET_EXPENSES = 'GET_EXPENSES';
 export const GET_RECEIPT_URL = 'GET_RECEIPT_URL';

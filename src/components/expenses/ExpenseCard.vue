@@ -102,7 +102,8 @@
     >
       <TheExpenseActions
         :expense="expense"
-        @onCloseExpenseActions="isExpenseActionsVisible = false"
+        @onCloseExpenseActions="onCloseExpenseActions"
+        @onExpenseDelete="onExpenseDelete"
       />
     </v-bottom-sheet>
   </div>
@@ -157,6 +158,13 @@ export default {
     ...mapActions(EXPENSE, {
       fetchReceiptUrl: FETCH_RECEIPT_URL,
     }),
+    onExpenseDelete() {
+      this.isDetailCardVisible = false;
+      this.isExpenseActionsVisible = false;
+    },
+    onCloseExpenseActions() {
+      this.isExpenseActionsVisible = false;
+    },
   },
 };
 </script>

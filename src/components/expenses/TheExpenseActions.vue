@@ -42,11 +42,13 @@ export default {
     },
   },
   data: () => ({
-    message: 'hello',
+    message: '',
     currentAction: null,
+    currentActionEvent: null,
     deleteExpenseData: {
       message: 'Do you really want to delete this expense ?',
       actions: null,
+      actionEvent: 'onExpenseDelete',
     },
     isConfirmDialogVisible: false,
   }),
@@ -57,7 +59,7 @@ export default {
     confirmAction() {
       this.currentAction({ idExpense: this.expense.idexpense });
       this.isConfirmDialogVisible = false;
-      this.$emit('onCloseExpenseActions');
+      this.$emit(this.actionEvent);
     },
     cancelAction() {
       this.isConfirmDialogVisible = false;
@@ -65,6 +67,7 @@ export default {
     },
     handleDeleteExpense() {
       this.message = this.deleteExpenseData.message;
+      this.actionEvent = this.deleteExpenseData.actionEvent;
       this.currentAction = this.deleteExpense;
       this.isConfirmDialogVisible = true;
     },
