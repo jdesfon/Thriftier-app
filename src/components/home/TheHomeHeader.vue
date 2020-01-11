@@ -56,6 +56,7 @@ export default {
 
 <style lang="scss" scoped>
 .theHomeHeader {
+  background-color: $light-alternate;
   padding-top: 2rem;
   padding-bottom: 0;
   padding-left: 1.2rem;
@@ -94,6 +95,7 @@ export default {
   }
 
   &__action {
+    background-color: $light-alternate;
     display: flex;
     justify-content: flex-end;
   }

@@ -9,6 +9,7 @@ import {
   GET_EXPENSES,
   FETCH_RECEIPT_URL,
   LIST_EXPENSES,
+  REMOVE_EXPENSE,
   SET_EXPENSES,
   SET_RECEIPT_URL,
   GET_RECEIPT_URL,
@@ -51,6 +52,7 @@ export const actions = {
   [DELETE_EXPENSE]: async ({ commit }, { idExpense }) => {
     try {
       await API.del(config.API_NAME, endpoints.deleteExpense(idExpense));
+      commit(REMOVE_EXPENSE, idExpense);
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
     }
@@ -73,6 +75,10 @@ export const mutations = {
   },
   [SET_RECEIPT_URL]: (state, { receiptUrl, idExpense }) => {
     state.receiptUrls[idExpense] = receiptUrl;
+  },
+  [REMOVE_EXPENSE]: (state, idExpense) => {
+    const expenseIndex = state.expenses.findIndex(exp => exp.idexpense === idExpense);
+    state.expenses.splice(expenseIndex, 1);
   },
 };
 export const getters = {
