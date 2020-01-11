@@ -240,8 +240,9 @@ export default {
     position: relative;
 
     .preview__undo {
-      background-color: $dark;
       cursor: pointer;
+      background-color: $dark;
+      z-index: 1;
       position: absolute;
       right: 0px;
       top: 0px;

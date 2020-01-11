@@ -62,12 +62,39 @@
           max-height="168"
           position="center center"
           :src="receiptUrl"
+          @click="isReceiptDialogVisible = true"
         />
         <span v-else>
           no receipt
         </span>
       </div>
     </div>
+
+    <v-dialog
+      v-if="receiptUrl"
+      v-model="isReceiptDialogVisible"
+      fullscreen
+      transition="dialog-bottom-transition"
+    >
+      <div
+        v-touch="{ down: () => isReceiptDialogVisible = false }"
+        class="receipt-view"
+      >
+        <v-icon
+          class="receipt-view__close"
+          color="white"
+          @click="isReceiptDialogVisible=false"
+        >
+          close
+        </v-icon>
+        <img
+          class="receipt-view__image"
+          :src="receiptUrl"
+          alt="receipt"
+          width="100%"
+        >
+      </div>
+    </v-dialog>
 
     <v-bottom-sheet
       v-model="isExpenseActionsVisible"
@@ -103,6 +130,7 @@ export default {
   data: () => ({
     isDetailCardVisible: false,
     isExpenseActionsVisible: false,
+    isReceiptDialogVisible: false,
     receiptUrl: null,
   }),
   computed: {
@@ -239,6 +267,30 @@ export default {
       font-size: 0.8rem;
     }
 
+  }
+}
+
+.receipt-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  height: 100vh;
+  z-index: 10;
+
+  &__image {
+    object-fit: contain;
+    max-width: 100vw;
+    z-index: 11;
+  }
+
+  &__close {
+    cursor: pointer;
+    background-color: $dark;
+    z-index: 1;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
   }
 }
 </style>
