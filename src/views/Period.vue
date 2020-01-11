@@ -1,5 +1,6 @@
 <template>
   <div class="period">
+    <BaseLoader :is-loading="isLoading" />
     <div
       v-if="period"
       class="period__header"
@@ -82,14 +83,16 @@ import moment from 'moment';
 import { mapActions, mapGetters } from 'vuex';
 import { EXPENSE, LIST_EXPENSES, GET_EXPENSES } from '../store/modules/expense-types';
 import { PERIOD, FETCH_PERIOD, GET_PERIOD } from '../store/modules/period-types';
-import ExpenseCard from '../components/expenses/ExpenseCard.vue';
+import BaseLoader from '../components/BaseLoader.vue';
 import CreateExpenseForm from '../components/expenses/CreateExpenseForm.vue';
+import ExpenseCard from '../components/expenses/ExpenseCard.vue';
 import ThePeriodHeader from '../components/periods/ThePeriodHeader.vue';
 import ThePeriodStatus from '../components/periods/ThePeriodStatus.vue';
 
 export default {
   name: 'Period',
   components: {
+    BaseLoader,
     CreateExpenseForm,
     ExpenseCard,
     ThePeriodHeader,
@@ -98,6 +101,7 @@ export default {
   data: () => ({
     fkPeriod: null,
     createExpenseSheet: false,
+    isLoading: true,
   }),
   computed: {
     ...mapGetters(EXPENSE, {
@@ -119,8 +123,12 @@ export default {
   },
   mounted() {
     this.fkPeriod = parseInt(this.$route.params.id, 10);
-    this.listExpenses({ periodId: this.fkPeriod });
-    this.fetchPeriod({ periodId: this.fkPeriod });
+    Promise.all([
+      this.listExpenses({ periodId: this.fkPeriod }),
+      this.fetchPeriod({ periodId: this.fkPeriod }),
+    ]).then(() => {
+      this.isLoading = false;
+    });
   },
   methods: {
     ...mapActions(EXPENSE, {
