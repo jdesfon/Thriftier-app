@@ -20,8 +20,10 @@ export const actions = {
     try {
       const expenses = await API.get(config.API_NAME, endpoints.listExpenses(periodId));
       commit(SET_EXPENSES, expenses);
+      return expenses;
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
+      return null;
     }
   },
   [CREATE_EXPENSE]: async ({ commit }, {
@@ -33,8 +35,11 @@ export const actions = {
     receipt,
   }) => {
     try {
-      const receiptFileKey = await s3Upload(receipt);
-      await API.post(config.API_NAME, endpoints.createExpense, {
+      let receiptFileKey = null;
+      if (receipt) {
+        receiptFileKey = await s3Upload(receipt);
+      }
+      return await API.post(config.API_NAME, endpoints.createExpense, {
         body: {
           amount,
           fkPeriod,
@@ -44,17 +49,19 @@ export const actions = {
           receipt: receiptFileKey,
         },
       });
-      commit('notification/NOTIFICATION_INFO', 'expense created', { root: true });
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
+      return null;
     }
   },
   [DELETE_EXPENSE]: async ({ commit }, { idExpense }) => {
     try {
-      await API.del(config.API_NAME, endpoints.deleteExpense(idExpense));
+      const deletedExpense = await API.del(config.API_NAME, endpoints.deleteExpense(idExpense));
       commit(REMOVE_EXPENSE, idExpense);
+      return deletedExpense;
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
+      return null;
     }
   },
   [FETCH_RECEIPT_URL]: async ({ commit }, { fileKey, idExpense }) => {

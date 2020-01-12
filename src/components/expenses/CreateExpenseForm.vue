@@ -177,15 +177,14 @@ export default {
     }),
     handleSubmit() {
       if (this.$refs.form.validate()) {
-        const expenseObj = {
+        this.createExpense({
           title: this.title,
           amount: this.amount,
           fkPeriod: this.fkPeriod,
           fkTransactionType: this.fkTransactionType,
           fkCategory: this.fkCategory,
           receipt: this.receipt,
-        };
-        this.createExpense(expenseObj);
+        });
         this.$refs.form.reset();
         this.$emit('close');
       } else {

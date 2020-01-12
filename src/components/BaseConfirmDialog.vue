@@ -12,7 +12,6 @@
           class="ma-0"
           dark
           block
-          color="blue"
           @click="handleYes"
         >
           yes

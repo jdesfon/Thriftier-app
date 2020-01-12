@@ -41,11 +41,6 @@ export default {
     isPeriodActionsListVisible: false,
     confirmDialog: false,
   }),
-  computed: {
-    formattedPerDay() {
-      return Number(this.period.perDay).toFixed(2);
-    },
-  },
 };
 </script>
 
