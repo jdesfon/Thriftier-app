@@ -6,7 +6,10 @@
       <span class="periodStatus__title">remaining</span>
       <span class="remaining__value">{{ formattedRemaining }}</span>
     </div>
-    <div class="periodStatus__daily-budget">
+    <div
+      v-if="period.isOpen"
+      class="periodStatus__daily-budget"
+    >
       <span class="periodStatus__title">daily budget</span>
       <span class="daily__value">
         <v-icon
@@ -18,10 +21,21 @@
         {{ formattedRemainingPerDay }}
       </span>
     </div>
+    <div
+      v-else
+      class="periodStatus__daily-budget"
+    >
+      <span class="periodStatus__title">total spent</span>
+      <span class="daily__value">
+        {{ formattedTotalSpent }}
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
+import numberToCurrency from '../../utils/numberFormat';
+
 export default {
   name: 'PeriodStatus',
   props: {
@@ -32,16 +46,18 @@ export default {
   },
   computed: {
     formattedRemaining() {
-      return `${Number(this.period.remaining)
-        .toFixed(2)} €`;
+      return `${numberToCurrency(this.period.remainingBudget)}`;
     },
     formattedRemainingPerDay() {
-      return `${Number(this.period.remainingPerDay)
-        .toFixed(2)} €/day`;
+      return `${numberToCurrency(this.period.remainingBudgetPerDay)} /day`;
+    },
+    formattedTotalSpent() {
+      return `${numberToCurrency(this.period.totalExpenses)} /day`;
     },
     status() {
-      const { perDay, remainingPerDay } = this.period;
-      const remainingRatio = remainingPerDay / perDay;
+      const { budgetPerDay, remainingBudgetPerDay } = this.period;
+      const remainingRatio = remainingBudgetPerDay / budgetPerDay;
+
       if (remainingRatio > 0.75 && remainingRatio < 0.95) {
         return 'orange';
       }

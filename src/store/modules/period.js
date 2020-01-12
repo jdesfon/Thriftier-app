@@ -1,7 +1,6 @@
 import { API } from 'aws-amplify';
 import config from '../../config';
 import endpoints from '../../api/endpoints';
-import router from '../../router';
 
 import {
   CLOSE_PERIOD,
@@ -20,7 +19,6 @@ export const actions = {
   [CLOSE_PERIOD]: async ({ commit }, { periodId }) => {
     try {
       await API.put(config.API_NAME, endpoints.closePeriod(periodId));
-      router.replace({ name: 'home' });
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
     }
@@ -32,38 +30,48 @@ export const actions = {
     endDate,
   }) => {
     try {
-      await API.post(config.API_NAME, endpoints.createPeriod, {
+      return await API.post(config.API_NAME, endpoints.createPeriod, {
         body: {
-          title, budget, startDate, endDate,
+          title,
+          budget,
+          startDate,
+          endDate,
         },
       });
-      router.replace({ name: 'home' });
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
+      return null;
     }
   },
   [DELETE_PERIOD]: async ({ commit }, { periodId }) => {
     try {
-      await API.del(config.API_NAME, endpoints.deletePeriod(periodId));
-      router.replace({ name: 'home' });
+      return await API.del(config.API_NAME, endpoints.deletePeriod(periodId));
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
+      return null;
     }
   },
   [LIST_PERIODS]: async ({ commit }, isOpen) => {
     try {
       const periods = await API.get(config.API_NAME, endpoints.listPeriods(isOpen));
-      commit(SET_PERIODS, { periods, isOpen });
+      commit(SET_PERIODS, {
+        periods,
+        isOpen,
+      });
+      return periods;
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
+      return null;
     }
   },
   [FETCH_PERIOD]: async ({ commit }, { periodId }) => {
     try {
       const [period] = await API.get(config.API_NAME, endpoints.fetchPeriod(periodId));
       commit(SET_PERIOD, { period });
+      return period;
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
+      return null;
     }
   },
 };

@@ -1,7 +1,10 @@
 <template>
   <div class="thePeriodHeaderInfos">
-    <span>
+    <span v-if="period.isOpen">
       <b>{{ remainingDays }}</b>
+    </span>
+    <span v-else>
+      budget: {{ period.budget }} €
     </span>
   </div>
 </template>

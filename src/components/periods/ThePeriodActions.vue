@@ -83,9 +83,14 @@ export default {
       deletePeriod: DELETE_PERIOD,
     }),
     confirmAction() {
-      this.currentAction({ periodId: this.period.idperiod });
-      this.isConfirmDialogVisible = false;
-      this.$emit('onClosePeriodActions');
+      this.currentAction({ periodId: this.period.idperiod })
+        .then(() => {
+          this.$router.push({ name: 'home' });
+        })
+        .finally(() => {
+          this.isConfirmDialogVisible = false;
+          this.$emit('onClosePeriodActions');
+        });
     },
     cancelAction() {
       this.isConfirmDialogVisible = false;
@@ -107,6 +112,6 @@ export default {
 
 <style lang="scss">
 .periodActions {
-    background-color: $light;
+  background-color: $light;
 }
 </style>

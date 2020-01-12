@@ -1,6 +1,5 @@
 <template>
   <div class="period">
-    <BaseLoader :is-loading="isLoading" />
     <div
       v-if="period"
       class="period__header"
@@ -13,6 +12,7 @@
       class="period__status"
     >
       <ThePeriodStatus :period="period" />
+      <BaseLoader :is-loading="isLoading" />
     </div>
 
     <div class="period__list">
@@ -25,7 +25,7 @@
             {{ formatSpacerDate(expensesGroup[0]) }}
           </span>
           <span>
-            {{ groupTotal(expensesGroup) }} €
+            {{ groupTotal(expensesGroup) }}
           </span>
         </div>
         <template v-for="(expense, expenseIndex) of expensesGroup[1]">
@@ -81,6 +81,7 @@
 <script>
 import moment from 'moment';
 import { mapActions, mapGetters } from 'vuex';
+import numberToCurrency from '../utils/numberFormat';
 import { EXPENSE, LIST_EXPENSES, GET_EXPENSES } from '../store/modules/expense-types';
 import { PERIOD, FETCH_PERIOD, GET_PERIOD } from '../store/modules/period-types';
 import BaseLoader from '../components/BaseLoader.vue';
@@ -146,7 +147,7 @@ export default {
         const sum = acc + curr.amount;
         return sum;
       }, 0);
-      return Number(groupTotal).toFixed(2);
+      return numberToCurrency(groupTotal);
     },
   },
 };

@@ -17,7 +17,7 @@
       <span
         class="trail__remaining"
       >{{ formattedRemaining }}</span>
-      <span class="trail__per-day">{{ formattedPerDay }}</span>
+      <span class="trail__per-day">{{ formattedRemainingPerDay }}</span>
     </div>
     <div
       v-else
@@ -31,6 +31,7 @@
 
 <script>
 import moment from 'moment';
+import numberToCurrency from '../../utils/numberFormat';
 
 export default {
   name: 'PeriodCard',
@@ -42,23 +43,21 @@ export default {
   },
   computed: {
     formattedBuget() {
-      return `${this.period.budget} €`;
+      return `${numberToCurrency(this.period.budget)}`;
     },
     formattedRemaining() {
-      return `${Number(this.period.remaining)
-        .toFixed(2)} €`;
+      return `${numberToCurrency(this.period.remainingBudget)}`;
     },
-    formattedPerDay() {
-      return `${Number(this.period.perDay)
-        .toFixed(2)} €/day`;
+    formattedRemainingPerDay() {
+      return `${numberToCurrency(this.period.remainingBudgetPerDay)} / day`;
     },
     formattedEndDate() {
       return moment(this.period.endDate)
         .format('MMM Do, YYYY');
     },
     status() {
-      const { perDay, remainingPerDay } = this.period;
-      const remainingRatio = remainingPerDay / perDay;
+      const { budgetPerDay, remainingBudgetPerDay } = this.period;
+      const remainingRatio = remainingBudgetPerDay / budgetPerDay;
       if (this.period.isOpen === 0) {
         return '';
       }

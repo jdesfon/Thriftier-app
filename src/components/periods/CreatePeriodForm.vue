@@ -24,48 +24,6 @@
       />
 
       <v-dialog
-        ref="startDateDialog"
-        v-model="isStartDatePickerVisible"
-        persistent
-        lazy
-        width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="startDate"
-            label="Start date"
-            placeholder="enter a start date"
-            readonly
-            hide-details
-            v-on="on"
-          />
-        </template>
-        <v-date-picker
-          v-model="startDate"
-          header-color="blue"
-          color="blue"
-          width="290px"
-          full-width
-        >
-          <v-spacer />
-          <v-btn
-            flat
-            color="primary"
-            @click="isStartDatePickerVisible = false"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            flat
-            color="primary"
-            @click="$refs.startDateDialog.save(startDate)"
-          >
-            OK
-          </v-btn>
-        </v-date-picker>
-      </v-dialog>
-
-      <v-dialog
         ref="endDateDialog"
         v-model="isEndDatePickerVisible"
         :return-value.sync="endDate"
@@ -85,7 +43,7 @@
         </template>
         <v-date-picker
           v-model="endDate"
-          :min="minEndDate"
+          :min="startDate"
           header-color="blue"
           color="blue"
           width="290px"
@@ -149,36 +107,25 @@ export default {
       endDate: '',
     };
   },
-  computed: {
-    minEndDate() {
-      return this.startDate ? this.startDate : null;
-    },
-  },
-  watch: {
-    startDate(value) {
-      if (moment(value)
-        .isAfter(this.endDate)) {
-        this.endDate = null;
-      }
-    },
-  },
   methods: {
     ...mapActions(PERIOD, {
       createPeriod: CREATE_PERIOD,
     }),
     handleSubmit() {
       if (this.$refs.form.validate()) {
-        const periodObj = {
+        this.createPeriod({
           title: this.title,
           budget: this.budget,
-          startDate: moment(this.startDate)
+          startDate: moment()
             .format('YYYY-MM-DD'),
           endDate: moment(this.endDate)
             .format('YYYY-MM-DD'),
-        };
-        this.createPeriod(periodObj);
-        this.$refs.form.reset();
-        this.$emit('close');
+        })
+          .then(() => {
+            this.$refs.form.reset();
+            this.$emit('close');
+            this.$router.go(0);
+          });
       } else {
         this.notifyError('Form is invalid!');
       }
