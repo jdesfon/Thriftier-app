@@ -12,7 +12,6 @@
         autofocus
         box
         browser-autocomplete="email"
-        dark
         label="Email"
         placeholder="enter your email"
         type="email"
@@ -22,7 +21,6 @@
         v-model="password"
         box
         browser-autocomplete="current-password"
-        dark
         label="Password"
         placeholder="enter your password"
         type="password"
@@ -62,6 +60,8 @@ export default {
       this.signIn({
         email: this.email,
         password: this.password,
+      }).then(() => {
+        this.$router.replace({ name: 'home' });
       });
     },
   },

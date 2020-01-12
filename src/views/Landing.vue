@@ -12,7 +12,7 @@
         sign in
       </v-btn>
       <router-link to="/auth/sign-up">
-        <span class="white--text">Sign up</span>
+        <span class="dark--text">Sign up</span>
       </router-link>
     </div>
   </div>
@@ -28,9 +28,6 @@ export default {
     goSignIn() {
       this.$router.push({ name: 'sign-in' });
     },
-    goSignUp() {
-      this.$router.push({ name: 'sign-up' });
-    },
   },
 };
 </script>
@@ -38,7 +35,7 @@ export default {
 <style lang="scss" scoped>
 .landing {
   position: relative;
-  background-image: url('../assets/img/thriftier-pig.svg');
+  background-image: url('../assets/img/thriftier-black.svg');
   background-position: 50% calc(50% - 2rem);
   background-size: 300px 300px;
   background-attachment: fixed;
@@ -46,7 +43,7 @@ export default {
   width: 100%;
   height: 100%;
   padding: 4rem 2rem 1rem 2rem;
-  color: $light;
+  color: $dark;
 
   .actions {
     position: absolute;

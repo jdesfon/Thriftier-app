@@ -15,6 +15,7 @@ export default {
 .baseAppTitle {
   display: flex;
   flex-direction: column;
+  color: $dark;
 
   &__app-name {
     font-size: 3rem;

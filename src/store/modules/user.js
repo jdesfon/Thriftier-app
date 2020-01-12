@@ -1,7 +1,5 @@
 import { Auth } from 'aws-amplify';
 
-import router from '../../router/index';
-
 import {
   SIGN_IN,
   SIGN_UP,
@@ -12,31 +10,48 @@ import {
 } from './user-types';
 
 export const actions = {
-  [SIGN_IN]: ({ commit }, { email, password }) => Auth.signIn(email, password).then(() => {
-    commit(SET_AUTHENTICATE_STATUS, true);
-    return router.push({ name: 'home' });
-  }).catch(() => {
-    commit(SET_AUTHENTICATE_STATUS, false);
-  }),
-  [SIGN_UP]: ({ commit }, { email, password }) => Auth.signUp(email, password).then(() => {
-    commit(SET_USER, { email, password });
-    return router.push({ name: 'confirm' });
-  }),
-  [SIGN_OUT]: ({ commit }) => Auth.signOut().then(() => {
-    commit(SET_AUTHENTICATE_STATUS, false);
-    commit(SET_USER, { email: null, password: null });
-    return router.push({ name: 'landing' });
-  }),
-  [CONFIRM_EMAIL]: ({ commit, state }, { code }) => Promise.all([
-    Auth.confirmSignUp(state.user.email, code),
-    Auth.signIn(state.user.email, state.user.password),
-  ])
-    .then(() => {
-      commit(SET_AUTHENTICATE_STATUS, true);
-      return router.push({ name: 'home' });
-    }).catch(() => {
+  [SIGN_IN]: async ({ commit }, { email, password }) => {
+    try {
+      await Auth.signIn(email, password);
+      return commit(SET_AUTHENTICATE_STATUS, true);
+    } catch (error) {
       commit(SET_AUTHENTICATE_STATUS, false);
-    }),
+      return error;
+    }
+  },
+  [SIGN_UP]: async ({ commit }, { email, password }) => {
+    try {
+      await Auth.signUp(email, password);
+      return commit(SET_USER, {
+        email,
+        password,
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+  [SIGN_OUT]: async ({ commit }) => {
+    try {
+      await Auth.signOut();
+      commit(SET_AUTHENTICATE_STATUS, false);
+      return commit(SET_USER, {
+        email: null,
+        password: null,
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+  [CONFIRM_EMAIL]: async ({ commit, state }, { code }) => {
+    try {
+      await Auth.confirmSignUp(state.user.email, code);
+      await Auth.signIn(state.user.email, state.user.password);
+      return commit(SET_AUTHENTICATE_STATUS, true);
+    } catch (error) {
+      commit(SET_AUTHENTICATE_STATUS, false);
+      return error;
+    }
+  },
 };
 
 export const mutations = {
@@ -44,12 +59,14 @@ export const mutations = {
     state.isAuthenticated = status;
   },
   [SET_USER]: (state, { email, password }) => {
-    state.user = { email, password };
+    state.user = {
+      email,
+      password,
+    };
   },
 };
 
-export const getters = {
-};
+export const getters = {};
 
 export const state = () => ({
   isAuthenticated: true,

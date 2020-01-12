@@ -12,7 +12,6 @@
         box
         browser-autocomplete="email"
         autofocus
-        dark
         label="Email"
         placeholder="email"
         type="email"
@@ -21,7 +20,6 @@
       <v-text-field
         v-model="password"
         box
-        dark
         label="Password"
         placeholder="password"
         type="password"
@@ -30,7 +28,6 @@
       <v-text-field
         v-model="passwordConfirm"
         box
-        dark
         label="Confirm password"
         placeholder="confirm your password"
         type="password"
@@ -72,6 +69,8 @@ export default {
         this.signUp({
           email: this.email,
           password: this.password,
+        }).then(() => {
+          this.$router.push({ name: 'confirm' });
         });
       }
     },

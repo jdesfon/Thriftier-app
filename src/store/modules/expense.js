@@ -53,7 +53,7 @@ export const actions = {
       });
       commit(ADD_EXPENSE, {
         idexpense,
-        amount,
+        amount: parseFloat(amount),
         fkPeriod,
         title,
         fkTransactionType,
