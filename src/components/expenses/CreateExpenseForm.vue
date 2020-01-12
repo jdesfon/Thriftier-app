@@ -116,6 +116,10 @@ import {
   EXPENSE,
   CREATE_EXPENSE,
 } from '../../store/modules/expense-types';
+import {
+  PERIOD,
+  FETCH_PERIOD,
+} from '@/store/modules/period-types';
 
 import {
   TRANSACTION_TYPE,
@@ -169,6 +173,9 @@ export default {
     ...mapActions(EXPENSE, {
       createExpense: CREATE_EXPENSE,
     }),
+    ...mapActions(PERIOD, {
+      fetchPeriod: FETCH_PERIOD,
+    }),
     ...mapActions(TRANSACTION_TYPE, {
       listTransactionTypes: LIST_TRANSACTION_TYPES,
     }),
@@ -184,9 +191,14 @@ export default {
           fkTransactionType: this.fkTransactionType,
           fkCategory: this.fkCategory,
           receipt: this.receipt,
-        });
-        this.$refs.form.reset();
-        this.$emit('close');
+        })
+          .then(() => {
+            this.fetchPeriod({ periodId: this.fkPeriod });
+          })
+          .finally(() => {
+            this.$refs.form.reset();
+            this.$emit('close');
+          });
       } else {
         this.notifyError('Form is invalid!');
       }

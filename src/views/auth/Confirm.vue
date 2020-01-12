@@ -1,16 +1,16 @@
 <template>
   <div class="confirm">
     <Header
+      class="header"
       redirect="landing"
       logo
     />
-    <form>
+    <form class="confirm__form">
+      <p>Your have received a confirmation code at your email address</p>
       <v-text-field
         v-model="code"
         autofocus
-        background-color="white"
-        color="white"
-        dark
+        background-color="dark"
         outline
         label="confirmation code"
         placeholder="XXXXXX"
@@ -46,7 +46,9 @@ export default {
       confirmEmail: CONFIRM_EMAIL,
     }),
     handleSubmit() {
-      this.confirmEmail({ code: this.code });
+      this.confirmEmail({ code: this.code }).then(() => {
+        this.$router.replace({ name: 'home' });
+      });
     },
   },
 };
@@ -57,28 +59,16 @@ export default {
   width: 100%;
   height: 100%;
   padding: 4rem 2rem 1rem 2rem;
-  color: $light;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
 
-.form__submit {
-  width: 100%;
-  height: 5rem;
-  text-align: center;
-  border: 0.2rem solid $light;
-  font-size: 1.4rem;
-  font-weight: 600;
-  border-radius: 5rem;
-  text-transform: uppercase;
-  background-color: $blue;
-  color: $light;
+  .header {
+    flex-grow: 1;
+  }
 
-  &:hover {
-    background-color: $light;
-    color: $blue;
-    transition: background-color 200ms ease-in-out;
+  &__form {
+    flex-grow: 1;
   }
 }
 </style>

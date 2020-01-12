@@ -20,7 +20,9 @@ export default {
       signOut: SIGN_OUT,
     }),
     handleSubmit() {
-      this.signOut();
+      this.signOut().then(() => {
+        this.$router.replace({ name: 'landing' });
+      });
     },
   },
 };

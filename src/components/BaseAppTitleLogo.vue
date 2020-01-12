@@ -16,6 +16,7 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
+  color: $dark;
 
   &__app-name {
     margin-left: 50px;
@@ -33,7 +34,7 @@ export default {
     left: 0px;
     width: 50px;
     height: 50px;
-    background-image: url('../assets/img/thriftier-pig.svg');
+    background-image: url('../assets/img/thriftier-black.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 50% 50%;
