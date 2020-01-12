@@ -113,10 +113,11 @@ export default {
     }),
     expensesGroupedByDay() {
       return this.expenses.reduce((acc, curr) => {
-        if (!acc[curr.date]) {
-          acc[curr.date] = [curr];
+        const currentDate = curr.date.substr(0, 10);
+        if (!acc[currentDate]) {
+          acc[currentDate] = [curr];
         } else {
-          acc[curr.date].push(curr);
+          acc[currentDate].push(curr);
         }
         return acc;
       }, {});

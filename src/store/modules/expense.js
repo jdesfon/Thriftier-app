@@ -1,9 +1,11 @@
 import { API } from 'aws-amplify';
+import moment from 'moment';
 import config from '../../config';
 import { s3Upload, s3FileUrl } from '../../libs/awsLib';
 import endpoints from '../../api/endpoints';
 
 import {
+  ADD_EXPENSE,
   CREATE_EXPENSE,
   DELETE_EXPENSE,
   GET_EXPENSES,
@@ -39,7 +41,7 @@ export const actions = {
       if (receipt) {
         receiptFileKey = await s3Upload(receipt);
       }
-      return await API.post(config.API_NAME, endpoints.createExpense, {
+      const idexpense = await API.post(config.API_NAME, endpoints.createExpense, {
         body: {
           amount,
           fkPeriod,
@@ -49,6 +51,20 @@ export const actions = {
           receipt: receiptFileKey,
         },
       });
+      commit(ADD_EXPENSE, {
+        idexpense,
+        amount,
+        fkPeriod,
+        title,
+        fkTransactionType,
+        fkCategory,
+        receipt: receiptFileKey,
+        date: moment()
+          .format('YYYY-MM-DD'),
+        createdAt: moment()
+          .format('YYYY-MM-DD HH:mm:ss'),
+      });
+      return idexpense;
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
       return null;
@@ -67,7 +83,10 @@ export const actions = {
   [FETCH_RECEIPT_URL]: async ({ commit }, { fileKey, idExpense }) => {
     try {
       const receiptUrl = await s3FileUrl(fileKey);
-      commit(SET_RECEIPT_URL, { receiptUrl, idExpense });
+      commit(SET_RECEIPT_URL, {
+        receiptUrl,
+        idExpense,
+      });
       return receiptUrl;
     } catch (error) {
       commit('notification/NOTIFICATION_ERROR', error.message, { root: true });
@@ -77,6 +96,9 @@ export const actions = {
 };
 
 export const mutations = {
+  [ADD_EXPENSE]: (state, expense) => {
+    state.expenses.push(expense);
+  },
   [SET_EXPENSES]: (state, expenses) => {
     state.expenses = expenses;
   },
