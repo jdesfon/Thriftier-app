@@ -62,6 +62,8 @@ export default {
         password: this.password,
       }).then(() => {
         this.$router.replace({ name: 'home' });
+      }).catch(() => {
+        this.$router.go(0);
       });
     },
   },
