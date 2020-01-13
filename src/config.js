@@ -7,6 +7,7 @@ export default {
     'image/gif',
     'application/pdf',
   ],
+  API_NAME: process.env.VUE_APP_API_NAME,
   s3: {
     REGION: process.env.VUE_APP_AWS_REGION,
     BUCKET: process.env.VUE_APP_S3_BUCKET_NAME,

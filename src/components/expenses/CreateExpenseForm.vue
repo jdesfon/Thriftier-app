@@ -115,6 +115,7 @@ import notifications from '../../mixins/notifications';
 import {
   EXPENSE,
   CREATE_EXPENSE,
+  LIST_EXPENSES,
 } from '../../store/modules/expense-types';
 import {
   PERIOD,
@@ -172,6 +173,7 @@ export default {
   methods: {
     ...mapActions(EXPENSE, {
       createExpense: CREATE_EXPENSE,
+      listExpenses: LIST_EXPENSES,
     }),
     ...mapActions(PERIOD, {
       fetchPeriod: FETCH_PERIOD,
@@ -192,9 +194,8 @@ export default {
           fkCategory: this.fkCategory,
           receipt: this.receipt,
         })
-          .then(() => {
-            this.fetchPeriod({ periodId: this.fkPeriod });
-          })
+          .then(() => this.fetchPeriod({ periodId: this.fkPeriod }))
+          .then(() => this.listExpenses({ periodId: this.fkPeriod }))
           .finally(() => {
             this.$refs.form.reset();
             this.$emit('close');
