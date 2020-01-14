@@ -1,14 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Lodash from 'lodash';
-import Auth from '../views/auth/index.vue';
-import Confirm from '../views/auth/Confirm.vue';
-import Home from '../views/Home.vue';
-import Period from '../views/Period.vue';
-import SignIn from '../views/auth/SignIn.vue';
-import SignUp from '../views/auth/SignUp.vue';
-import SignOut from '../views/auth/SignOut.vue';
-import Landing from '../views/Landing.vue';
+
 import store from '../store';
 
 Vue.use(VueRouter);
@@ -17,44 +10,44 @@ const routes = [
   {
     path: '/',
     name: 'landing',
-    component: Landing,
+    component: () => import('../views/Landing.vue'),
   },
   {
     path: '/auth',
     name: 'auth',
-    component: Auth,
+    component: () => import('../views/auth/index.vue'),
     children: [
       {
         path: '/auth/sign-in',
         name: 'sign-in',
-        component: SignIn,
+        component: () => import('../views/auth/SignIn.vue'),
       },
       {
         path: '/auth/sign-up',
         name: 'sign-up',
-        component: SignUp,
+        component: () => import('../views/auth/SignUp.vue'),
       },
       {
         path: '/auth/email-confirm',
         name: 'confirm',
-        component: Confirm,
+        component: () => import('../views/auth/Confirm.vue'),
       },
       {
         path: '/auth/sign-out',
         name: 'sign-out',
-        component: SignOut,
+        component: () => import('../views/auth/SignOut.vue'),
       },
     ],
   },
   {
     path: '/home',
     name: 'home',
-    component: Home,
+    component: () => import('../views/Home.vue'),
   },
   {
     path: '/period/:id',
     name: 'period',
-    component: Period,
+    component: () => import('../views/Period.vue'),
   },
   {
     path: '*', redirect: { name: 'landing' },

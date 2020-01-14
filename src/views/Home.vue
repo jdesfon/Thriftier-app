@@ -57,7 +57,7 @@ export default {
     createPeriodSheet: false,
     isLoading: true,
   }),
-  mounted() {
+  created() {
     this.isCurrentSession()
       .then(() => Promise.all([
         this.fetchOpenPeriods(),

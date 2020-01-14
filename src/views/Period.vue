@@ -123,7 +123,7 @@ export default {
       }, {});
     },
   },
-  mounted() {
+  created() {
     this.fkPeriod = parseInt(this.$route.params.id, 10);
     Promise.all([
       this.listExpenses({ periodId: this.fkPeriod }),
