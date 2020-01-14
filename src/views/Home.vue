@@ -38,7 +38,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import { USER, SIGN_OUT } from '../store/modules/user-types';
+import { USER, IS_CURRENT_SESSION, SIGN_OUT } from '../store/modules/user-types';
 import { PERIOD, LIST_PERIODS } from '../store/modules/period-types';
 import BaseLoader from '../components/BaseLoader.vue';
 import CreatePeriodForm from '../components/periods/CreatePeriodForm.vue';
@@ -58,15 +58,21 @@ export default {
     isLoading: true,
   }),
   mounted() {
-    Promise.all([
-      this.fetchOpenPeriods(),
-      this.fetchClosePeriods(),
-    ]).then(() => {
-      this.isLoading = false;
-    });
+    this.isCurrentSession()
+      .then(() => Promise.all([
+        this.fetchOpenPeriods(),
+        this.fetchClosePeriods(),
+      ]))
+      .catch(() => {
+        this.$router.replace({ name: 'landing' });
+      })
+      .finally(() => {
+        this.isLoading = false;
+      });
   },
   methods: {
     ...mapActions(USER, {
+      isCurrentSession: IS_CURRENT_SESSION,
       signOut: SIGN_OUT,
     }),
     ...mapActions(PERIOD, {

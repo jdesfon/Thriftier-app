@@ -30,6 +30,15 @@ Amplify.configure({
   },
 });
 
+// check if session to redirect on start
+store.dispatch('user/IS_CURRENT_SESSION')
+  .then(() => {
+    router.push({ name: 'home' });
+  })
+  .catch(() => {
+    router.push({ name: 'landing' });
+  });
+
 Vue.config.productionTip = false;
 
 new Vue({
