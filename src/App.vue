@@ -1,7 +1,9 @@
 <template>
   <v-app :style="{ background: $vuetify.theme.themes[theme].background }">
     <v-content>
-      <router-view />
+      <transition name="slide-fade">
+        <router-view />
+      </transition>
     </v-content>
     <v-snackbar
       v-model="isSnackbarVisible"
@@ -54,3 +56,13 @@ export default {
   },
 };
 </script>
+
+<style>
+.slide-fade-enter-active {
+  transition: all .3s ease-in-out;
+}
+.slide-fade-enter, .slide-fade-leave-to {
+transform: translateX(10px);
+opacity: 0;
+}
+</style>
