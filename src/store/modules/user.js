@@ -1,15 +1,25 @@
 import { Auth } from 'aws-amplify';
 
 import {
+  CONFIRM_EMAIL,
+  IS_CURRENT_SESSION,
   SIGN_IN,
   SIGN_UP,
   SIGN_OUT,
-  CONFIRM_EMAIL,
   SET_AUTHENTICATE_STATUS,
   SET_USER,
 } from './user-types';
 
 export const actions = {
+  [IS_CURRENT_SESSION]: async ({ commit }) => {
+    try {
+      await Auth.currentSession();
+      return commit(SET_AUTHENTICATE_STATUS, true);
+    } catch (error) {
+      commit(SET_AUTHENTICATE_STATUS, false);
+      throw error;
+    }
+  },
   [SIGN_IN]: async ({ commit }, { email, password }) => {
     try {
       await Auth.signIn(email, password);
